@@ -2,13 +2,35 @@
 <html ng-app="embs">
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 		<title></title>
 		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/base.css">
 	</head>
 	<body>
+		<!-- ui-view and nest view placed -->
 		<div id="main-view" ui-view></div>
+		<!--nav bar-->
+		<nav id="home-nav" class="navbar navbar-fixed-bottom">
+			<div class="navbar-left">
+				<a class="home" title="网站主页" href="#"></a>
+				<a class="userinfo" title="用户信息" href="#"></a>
+			</div>
+			<div class="navbar-mid dropup">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button>
+				<ul class="dropup-menu">
+					<!-- Dropdown menu links -->
+					<li ng-repeat="item in menus"><a href="">{{item.name}}</a></li>
+				</ul>
+			</div>
+			<div class="navbar-right">
+				<a class="goback" title="后退" href="#"></a>
+				<a class="refresh" title="刷新" href="#"></a>
+			</div>
+		</nav>
 	</body>
 </html>
+<!-- required framework script -->
 <script type="text/javascript" src="lib/angular.js"></script>
 <script type="text/javascript" src="lib/angular-ui-router.js"></script>
 <script type="text/javascript" src="js/embs.js"></script>
