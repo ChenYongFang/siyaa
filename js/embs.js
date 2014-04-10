@@ -21,8 +21,8 @@
  		'user',
  		{
  			url:'/user',
- 			templateUrl:'views/user.html',
- 			css:'/css/user.css'
+ 			css:'/css/user.css',
+ 			templateUrl:'views/user.html'
  		}
  	)
  	.state(
@@ -30,6 +30,16 @@
  		{
  			url:'/login',
  			templateUrl:'views/partials/u-login.html'
+ 		}
+ 	)
+
+
+ 	//register lottery route
+ 	.state(
+ 		'lottery',
+ 		{
+ 			url:'/lottery',
+ 			templateUrl:'views/lottery.html'
  		}
  	);
  	
@@ -44,8 +54,11 @@
  				var html = '<link rel="stylesheet" ng-repeat="(routeCtrl, cssUrl) in routeStyles" ng-href="{{cssUrl}}" />';
  				elem.append($compile(html)(scope));
  				scope.routeStyles = {};
+
  				// inject dependencies for state change
  				$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
+ 					//delete previous state used css file
                     if(fromState && fromState.css){
                         if(!Array.isArray(fromState.css)){
                             fromState.css = [fromState.css];
@@ -54,6 +67,8 @@
                             delete scope.routeStyles[sheet];
                         });
                     }
+
+                    //inject current state needed css file
                     if(toState && toState.css){
                         if(!Array.isArray(toState.css)){
                             toState.css = [toState.css];
