@@ -1,1 +1,32 @@
-<div>this is a login view for user!</div>
+<div id="wrap-login">
+	<form name="login">
+		<div ng-class="{'has-error':login.uname.$error.pattern && login.uname.$dirty}" class="form-group">
+			<div ng-show="login.uname.$dirty">
+				<label ng-show="login.uname.$invalid" class="help-block">用户名输入错误</label>
+			</div>
+			<div class="wrap-uname">
+				<input name="uname"
+					ng-model="user.uname"
+					ng-pattern="/^[a-zA-Z][a-zA-Z0-9_]{6,15}$/"
+					type="text"
+					autofocus
+					maxlength="20"
+					required class="form-control"
+					placeholder="登录账号">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="wrap-upwd">
+				<input name="upwd"
+					type="password"
+					ng-minlength="6"
+					ng-model="user.upwd"
+					required
+					maxlength="28"
+					class="form-control"
+					placeholder="登录密码">
+			</div>
+		</div>
+		<button ng-disabled="login.$invalid" type="submit" ng-click="alert('ok')" class="btn-block">登　录</button>
+	</form>
+</div>
