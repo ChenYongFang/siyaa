@@ -21,7 +21,10 @@
  		'user',
  		{
  			url:'/user',
- 			css:'/css/user.css',
+ 			data:
+            {
+                css:'/css/user.css'
+            },
  			templateUrl:'views/user.html'
  		}
  	)
@@ -51,7 +54,7 @@
  		return {
  			restrict: 'E',
  			link: function(scope, elem){
- 				var html = '<link rel="stylesheet" ng-repeat="(routeCtrl, cssUrl) in routeStyles" ng-href="{{cssUrl}}" />';
+ 				var html = '<link rel="stylesheet" ng-repeat="cssUrl in routeStyles" ng-href="{{cssUrl}}">';
  				elem.append($compile(html)(scope));
  				scope.routeStyles = {};
 
@@ -59,21 +62,22 @@
  				$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
  					//delete previous state used css file
-                    if(fromState && fromState.css){
-                        if(!Array.isArray(fromState.css)){
-                            fromState.css = [fromState.css];
+
+                    if(fromState && angular.isDefined(fromState.data) && fromState.data.css){
+                        if(!Array.isArray(fromState.data.css)){
+                            fromState.data.css = [fromState.data.css];
                         }
-                        angular.forEach(fromState.css, function(sheet){
+                        angular.forEach(fromState.data.css, function(sheet){
                             delete scope.routeStyles[sheet];
                         });
                     }
 
                     //inject current state needed css file
-                    if(toState && toState.css){
-                        if(!Array.isArray(toState.css)){
-                            toState.css = [toState.css];
+                    if(toState && angular.isDefined(toState.data) && toState.data.css){
+                        if(!Array.isArray(toState.data.css)){
+                            toState.data.css = [toState.data.css];
                         }
-                        angular.forEach(toState.css, function(sheet){
+                        angular.forEach(toState.data.css, function(sheet){
                             scope.routeStyles[sheet] = sheet;
                         });
                     }
