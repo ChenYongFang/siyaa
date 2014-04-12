@@ -7,7 +7,7 @@
  * License: siyaa inc
  */
 
- var EMBS = angular.module('embs',['ui.router']);
+ var EMBS = angular.module('embs',['ui.router','ui.bootstrap']);
 
 //inject service provider($stateProvider,$urlRouteProvider) into our application
 
@@ -20,6 +20,7 @@
  	$stateProvider.state(
  		'user',
  		{
+            abstract:true,
  			url:'/user',
  			data:
             {
