@@ -10,20 +10,51 @@
 //web modal service
 
 EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
+	//show a modal
+	function show(obj){
 
-	var defaultTpl = ''; // default template
+		// default template
+		var defaultTpl = '';
+
+		if(obj.tmpUrl){
+			// set templateUrl
+			defaultTpl = obj.tmpUrl;
+		}else if(obj.template){
+			//inline template 
+			$modal.open({
+				template:obj.template,
+				controller:obj.controller,
+				resolve:obj.resolve
+			});
+			//jump out of here
+			return true;
+		}else{
+			// set template to be default.
+			defaultTpl = '/views/angularui/modal/modal.htm';
+		}
+
+		//tmpUrl,title,content,controller,resolve
+		$modal.open({
+			templateUrl:defaultTpl,
+			controller:obj.controller,
+			resolve:obj.resolve
+		});
+	}
 
 	return{
-		//open a modal
-		open:function(tmpUrl,title,content,controller,resolve){
-			$modal.open({
-				templateUrl:tmpUrl,
-				controller:controller,
-				resolve:resolve;
+		// open a modal.
+		open:function(title,content){
+			show({
+				controller:function($scope,$modalInstance){
+					$scope.title = title;
+					$scope.content = content;
+					$scope.close = function(){
+						$modalInstance.close();
+					}
+				}
 			});
 		}
 	}
-
 }]);
 
 //basic data service

@@ -33,10 +33,10 @@
  		'user.login',
  		{
  			url:'/login',
+            controller:'UserLogin',
  			templateUrl:'views/partials/u-login.html'
  		}
  	)
-
 
  	//register lottery route
  	.state(
