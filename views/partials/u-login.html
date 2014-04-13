@@ -1,8 +1,8 @@
 <div id="wrap-login">
-	<form name="login">
-		<div ng-class="{'has-error':login.uname.$error.pattern && login.uname.$dirty}" class="form-group">
-			<div ng-show="login.uname.$dirty">
-				<label ng-show="login.uname.$invalid" class="help-block">用户名输入错误</label>
+	<form name="login_form">
+		<div ng-class="{'has-error':login_form.uname.$error.pattern && login_form.uname.$dirty}" class="form-group">
+			<div ng-show="login_form.uname.$dirty">
+				<label ng-show="login_form.uname.$invalid" class="help-block">用户名输入错误</label>
 			</div>
 			<div class="wrap-uname">
 				<input name="uname"
@@ -27,6 +27,6 @@
 					placeholder="登录密码">
 			</div>
 		</div>
-		<button ng-disabled="login.$invalid" type="submit" ng-click="alert('ok')" class="btn-block">登　录</button>
+		<button ng-disabled="login_form.$invalid" type="submit" ng-click="login()" class="btn-block">登　录</button>
 	</form>
 </div>
