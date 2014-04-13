@@ -8,10 +8,10 @@
  */
 
  // define user modul controller
- EMBS.controller('UserLogin',function($scope,ModalService){
+ EMBS.controller('UserLogin',['$scope','ModalService',function($scope,ModalService){
 
  	$scope.login = function(){
- 		ModalService.open('I\'m a modal!','this is a Test');
+ 		ModalService.openWithDefaultTitle('登录失败，暂时无法获取服务器数据！');
  	}
 
- });
+ }]);

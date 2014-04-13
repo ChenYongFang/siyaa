@@ -41,6 +41,11 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 		});
 	}
 
+	// close a modal
+	function close($modalInstance){
+		$modalInstance.close();
+	}
+
 	return{
 		// open a modal.
 		open:function(title,content){
@@ -49,7 +54,19 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 					$scope.title = title;
 					$scope.content = content;
 					$scope.close = function(){
-						$modalInstance.close();
+						close($modalInstance);
+					}
+				}
+			});
+		},
+		// open a modal with default title
+		openWithDefaultTitle:function(content){
+			show({
+				controller:function($scope,$modalInstance){
+					$scope.title = '温馨提示';
+					$scope.content = content;
+					$scope.close = function(){
+						close($modalInstance);
 					}
 				}
 			});

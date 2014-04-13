@@ -11,7 +11,7 @@
 
 //inject service provider($stateProvider,$urlRouteProvider) into our application
 
- EMBS.config(function($stateProvider,$urlRouterProvider){
+ EMBS.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
 
  	// For any unmatched url, redirect to /notfound
  	$urlRouterProvider.otherwise('/notfound');
@@ -47,7 +47,7 @@
  		}
  	);
  	
- });
+ }]);
 
  //compile the head with extra things such like stylesheet、title etc. 
  EMBS.directive('head', ['$rootScope','$compile',

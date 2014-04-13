@@ -16,6 +16,14 @@ button{
 button:focus{
 	outline: none;
 }
+/* set bootstrap's components to be have a hand style */
+.nav, .pagination, .carousel, .panel-title a{
+	cursor: pointer;
+}
+/* rewrite bootstrap's modal overflow-y stle to be auto */
+.modal{
+	overflow: auto;
+}
 /* used for vertical align middle */
 div.table{
 	display: table;
