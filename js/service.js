@@ -76,7 +76,7 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 
 //basic data service
 
- EMBS.factory('DataService',['$http',function($http){
+ EMBS.factory('DataService',['$http','$log','ModalService',function($http,$log,ModalService){
 
  	var baseDataUrl = '/embs/';
 
@@ -92,7 +92,10 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  				//包含数据接口返回的状态
  				switch(data._code){
  					//异常代码判断
+ 					case 4:
  					case 10:
+ 					case 100:
+ 						ModalService.openWithDefaultTitle(ERRCODEMSG[data._code]);
  						break;
  					default:
  						callback(data); //正常数据请求
@@ -110,13 +113,15 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  			$http.get(baseDataUrl+url,{params:params}).success(function(data){
  				preCallback(data,callback);
  			}).error(function(data,status){
+ 				$log.info('GetHttpError：'+status+'  Params:'+params);
  				preCallback(data,callback,status,errCollback);
  			});
  		},
  		post:function(url,data,callback,errCollback){
- 			$http.post(baseDataUrl+url,$.param(data)).success(function(data){
+ 			$http.post(baseDataUrl+url,data,{headers: {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}}).success(function(data){
  				preCallback(data,collback);
  			}).error(function(data,status){
+ 				$log.info('PostHttpError：'+status+'  Params:'+params);
  				preCallback(data,callback,status,errCollback);
  			});
  		}

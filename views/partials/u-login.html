@@ -1,5 +1,5 @@
 <div id="wrap-login">
-	<form name="login_form">
+	<form name="login_form" method="post">
 		<div ng-class="{'has-error':login_form.uname.$error.pattern && login_form.uname.$dirty}" class="form-group">
 			<div ng-show="login_form.uname.$dirty">
 				<label ng-show="login_form.uname.$invalid" class="help-block">用户名输入错误</label>
