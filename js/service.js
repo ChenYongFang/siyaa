@@ -118,7 +118,7 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  			});
  		},
  		post:function(url,data,callback,errCollback){
- 			$http.post(baseDataUrl+url,data,{headers: {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}}).success(function(data){
+ 			$http.post(baseDataUrl+url,data).success(function(data){
  				preCallback(data,collback);
  			}).error(function(data,status){
  				$log.info('PostHttpError：'+status+'  Params:'+params);
