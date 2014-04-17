@@ -20,11 +20,10 @@
 
  	$scope.login = function(){
  		DataService.post('usermgr/user/mobile/login',{loginname:$scope.user.uname,password:$scope.user.upwd},function(data){
-
+ 			
  		},function(data,status){
  			ModalService.openWithDefaultTitle('登录失败，服务器发生异常!');
  		});
- 		//ModalService.openWithDefaultTitle('登录失败，暂时无法获取服务器数据！');
  	}
 
  }]);

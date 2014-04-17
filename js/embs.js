@@ -7,11 +7,35 @@
  * License: siyaa inc
  */
 
+ /* regist some common function for angular */
+
+ // serialize from object data
+ angular.params = function(params){
+    if (!params) return;
+
+    var parts = [];
+
+    angular.forEach(params,function(value,key){
+        if (value === null || angular.isUndefined(value)) return;
+        if (!angular.isArray(value)) value = [value];
+
+        angular.forEach(value,function(v){
+            //current unsupport the nesting object or array.
+            if (angular.isObject(v)) {
+                v = angular.toJson(v);
+            }
+            parts.push(key + '=' + v);
+        })
+    })
+
+    return parts.join('&');
+ }
+
  var EMBS = angular.module('embs',['ui.router','ui.bootstrap']);
 
 //inject service provider($stateProvider,$urlRouteProvider) into our application
 
- EMBS.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+ EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$httpProvider){
 
  	// For any unmatched url, redirect to /notfound
  	$urlRouterProvider.otherwise('/notfound');
@@ -46,6 +70,9 @@
  			templateUrl:'views/lottery.html'
  		}
  	);
+
+    //set default http header application/x-www-form-urlencoded
+    //$httpProvider.defaults.headers.post = {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'};
  	
  }]);
 

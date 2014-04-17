@@ -92,7 +92,6 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  				//包含数据接口返回的状态
  				switch(data._code){
  					//异常代码判断
- 					case 4:
  					case 10:
  					case 100:
  						ModalService.openWithDefaultTitle(ERRCODEMSG[data._code]);
@@ -109,8 +108,11 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 
  	return {
  		//处理远程请求方法
- 		get:function(url, params, callback,errCollback){
- 			$http.get(baseDataUrl+url,{params:params}).success(function(data){
+ 		get:function(url, params, callback,errCollback,cache){
+ 			// default to be no cache
+ 			if(!cache)
+ 				cache = false;
+ 			$http.get(baseDataUrl+url,{params:params,cache:cache}).success(function(data){
  				preCallback(data,callback);
  			}).error(function(data,status){
  				$log.info('GetHttpError：'+status+'  Params:'+params);
@@ -118,8 +120,19 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  			});
  		},
  		post:function(url,data,callback,errCollback){
+ 			/* replace the angularjs's default post behavior to not be normal form post behavior */
+ 			$http.defaults.headers.post = {'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'};
+
+ 			$http.post(baseDataUrl+url,angular.params(data)).success(function(data){
+ 				preCallback(data,callback);
+ 			}).error(function(data,status){
+ 				$log.info('PostHttpError：'+status+'  Params:'+params);
+ 				preCallback(data,callback,status,errCollback);
+ 			});
+ 		},
+ 		postJson:function(url,data,callback,errCollback){
  			$http.post(baseDataUrl+url,data).success(function(data){
- 				preCallback(data,collback);
+ 				preCallback(data,callback);
  			}).error(function(data,status){
  				$log.info('PostHttpError：'+status+'  Params:'+params);
  				preCallback(data,callback,status,errCollback);
