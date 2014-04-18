@@ -1,0 +1,194 @@
+<style type="text/css">
+	body{
+		background: #f0f0f0;
+	}
+	.market-h .nav-list{
+		font-size: 1.6em;
+		line-height: 1;
+		padding: 4px 0;
+		background: #e5e5e5;
+		text-align: center;
+		white-space: nowrap;
+		box-shadow: 0 1px 2px #cbcbcb;
+	}
+	.market-h .nav-list .glyphicon-search,.market-h .nav-list .glyphicon-align-justify{
+		margin-right: 15%;
+	}
+	.market-h .nav-list .left,.market-h .nav-list .right{
+		width: 30%;
+		padding: 6px 0;
+	}
+	.market-h .nav-list a{
+		color: #333;
+		cursor: pointer;
+		text-decoration: none;
+	}
+	.market-h .nav-list .left{
+		float: left;
+		position: relative;
+		box-shadow: 1px 0 #cbcbcb;
+		border-right: 1px solid #fff;
+	}
+	/* modal nav list style */
+	#drop-back{
+		z-index: 1030;
+		opacity: 0.5;
+		background: #000;
+	}
+	#drop-navlist,#drop-back{
+		top: 44px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		position: fixed;
+	}
+	#drop-navlist{
+		z-index: 1040;
+		display: none;
+	}
+	#drop-navlist > ul{
+		width: 50%;
+		padding: 0 10px;
+		list-style: none;
+		position: relative;
+		background: #f0f0f0;
+	}
+	#drop-navlist > ul li{
+		border-bottom:1px solid #fff;
+	}
+	#drop-navlist > ul li:last-child{
+		border: none;
+	}
+	#drop-navlist > ul li:last-child a{
+		border: none;
+	}
+	#drop-navlist > ul li a{
+		display: block;
+		color: #656565;
+		padding: 0 10px;
+		line-height: 2.8;
+		text-decoration: none;
+		border-bottom: 1px solid #cbcbcb;
+	}
+	.market-h .nav-list .mid{
+		width: 40%;
+		float: left;
+		padding: 6px 0;
+	}
+	.market-h .nav-list .right{
+		float: right;
+		box-shadow: -1px 0 #fff;
+		border-left: 1px solid #cbcbcb;
+	}
+	.product-list{
+		padding: 0 10%;
+		margin-top: 48px;
+	}
+	.product-list .title{
+		font-size: 1em;
+	}
+	.product-list > .row{
+		margin: 8px 0 0;
+	}
+	.product-list > .row > div{
+		padding: 0;
+	}
+	.product-list .row > div .left{
+		margin-right: 4px;
+		background: #fff;
+		box-shadow: 0 0 2px #a7a7a7;
+	}
+	.product-list .row > div .right{
+		margin-left:4px;
+		background: #fff;
+		box-shadow: 0 0 2px #a7a7a7;
+	}
+	.product-list  .row > div .b-info{
+		line-height: 1.2;
+		padding: 5px;
+		background: #e5e5e5;
+		border-top: 1px solid #c9c9c9;
+	}
+	.product-list .row > div .b-info span{
+		display: block;
+		margin-top: 3px;
+	}
+	.product-list > .more{
+		padding: 6px 20px;
+		margin: 15px -10px 0;
+		border-top: 1px solid #c9c9c9;
+	}
+	.product-list > .more a{
+		color: #808080;
+		float: right;
+		position: relative;
+		padding-right: 10px;
+		text-decoration: none;
+	}
+	.product-list > .more a:after{
+		top: 6px;
+		right: 0;
+		width: 8px;
+		height: 8px;
+		content: '';
+		transform:rotate(45deg);
+		-webkit-transform:rotate(45deg);
+		position: absolute;
+		border: solid #666666;
+		border-width: 1px 1px 0 0;
+	}
+	.product-list > hr{
+		height: 10px;
+		margin: 0 -12%;
+		background: #e5e5e5;
+	}
+</style>
+<header class="market-h">
+	<nav class="nav-list clearfix navbar-fixed-top">
+		<div class="left">
+			<span class="glyphicon glyphicon-align-justify" ng-click="dropNav()"></span>
+  			<a class="glyphicon glyphicon-user"></a>
+		</div>
+		<div class="mid">
+			<img src="views/images/market-logo.png" width="60" />
+		</div>
+		<div class="right">
+			<a class="glyphicon glyphicon-search"></a>
+			<a class="glyphicon glyphicon-shopping-cart"></a>
+		</div>
+	</nav>
+</header>
+<div class="container product-list">
+	<h4 class="title">◎ 啤酒</h4>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="left">
+				<img class="img-responsive" src="views/images/01.jpg" />
+				<div class="b-info">
+					法国科翠思啤酒
+					<span ng-class="shop_f_color_1">￥2360.00</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="right">
+				<img class="img-responsive" src="views/images/01.jpg" />
+				<div class="b-info">
+					法国科翠思啤酒
+					<span ng-class="shop_f_color_1">￥2360.00</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="more clearfix">
+		<a href="#/">更多</a>
+	</div>
+	<hr>
+</div>
+<div id="drop-navlist">
+	<ul role="menu">
+		<li><a role="menuitem" tabindex="-1" href="#">◎ 全部商品</a></li>
+		<li><a role="menuitem" tabindex="-1" href="#">◎ 啤酒饮料</a></li>
+		<li><a role="menuitem" tabindex="-1" href="#">◎ 风味小吃</a></li>
+	</ul>
+ </div>

@@ -10,20 +10,20 @@
  // defin layout template controller
  EMBS.controller('InitHomeNav',['$scope','DataService',function($scope,DataService){
  	var params = {pagenum:1,pagesize:9,pid:''};
-	DataService.get('navigation/list4client',params,function(data){
+	DataService.get({url:'navigation/list4client',params:params,callback:function(data){
 		$scope.menus = data.items;
-	});
+	},cache:true});
  }])
 
  // define user modul controller
  EMBS.controller('UserLogin',['$scope','ModalService','DataService',function($scope,ModalService,DataService){
 
  	$scope.login = function(){
- 		DataService.post('usermgr/user/mobile/login',{loginname:$scope.user.uname,password:$scope.user.upwd},function(data){
+ 		DataService.post({url:'usermgr/user/mobile/login',data:{loginname:$scope.user.uname,password:$scope.user.upwd},callback:function(data){
  			
- 		},function(data,status){
+ 		},errCollback:function(data,status){
  			ModalService.openWithDefaultTitle('登录失败，服务器发生异常!');
- 		});
+ 		}});
  	}
 
  }]);

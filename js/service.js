@@ -94,6 +94,7 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  					//异常代码判断
  					case 10:
  					case 100:
+ 						alert(data._code);
  						ModalService.openWithDefaultTitle(ERRCODEMSG[data._code]);
  						break;
  					default:
@@ -107,35 +108,35 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  	}
 
  	return {
- 		//处理远程请求方法
- 		get:function(url, params, callback,errCollback,cache){
+ 		//处理远程请求方法 url, params, callback,errCollback,cache
+ 		get:function(options){
  			// default to be no cache
- 			if(!cache)
- 				cache = false;
- 			$http.get(baseDataUrl+url,{params:params,cache:cache}).success(function(data){
- 				preCallback(data,callback);
+ 			if(!options.cache)
+ 				options.cache = false;
+ 			$http.get(baseDataUrl+options.url,{params:options.params,cache:options.cache}).success(function(data){
+ 				preCallback(data,options.callback);
  			}).error(function(data,status){
  				$log.info('GetHttpError：'+status+'  Params:'+params);
- 				preCallback(data,callback,status,errCollback);
+ 				preCallback(data,options.callback,status,options.errCollback);
  			});
  		},
- 		post:function(url,data,callback,errCollback){
+ 		post:function(options){
  			/* replace the angularjs's default post behavior to not be normal form post behavior */
  			$http.defaults.headers.post = {'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'};
 
- 			$http.post(baseDataUrl+url,angular.params(data)).success(function(data){
- 				preCallback(data,callback);
+ 			$http.post(baseDataUrl+options.url,angular.params(options.data)).success(function(data){
+ 				preCallback(data,options.callback);
  			}).error(function(data,status){
- 				$log.info('PostHttpError：'+status+'  Params:'+params);
- 				preCallback(data,callback,status,errCollback);
+ 				$log.info('PostHttpError：'+status+'  Params:'+options.params);
+ 				preCallback(data,options.callback,status,options.errCollback);
  			});
  		},
- 		postJson:function(url,data,callback,errCollback){
- 			$http.post(baseDataUrl+url,data).success(function(data){
- 				preCallback(data,callback);
+ 		postJson:function(options){
+ 			$http.post(baseDataUrl+options.url,angular.params(options.data)).success(function(data){
+ 				preCallback(data,options.callback);
  			}).error(function(data,status){
- 				$log.info('PostHttpError：'+status+'  Params:'+params);
- 				preCallback(data,callback,status,errCollback);
+ 				$log.info('PostJsonHttpError：'+status+'  Params:'+options.params);
+ 				preCallback(data,options.callback,status,options.errCollback);
  			});
  		}
  	}
