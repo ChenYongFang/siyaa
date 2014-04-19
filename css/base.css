@@ -9,12 +9,19 @@ body{
 	background-size: cover;
 	-moz-background-size:cover; 
 	-webkit-background-size:cover; 
+	font-family: "microsoft yahei", "STHeiti", "Arial", sans-serif;
 }
 button{
 	border: none;
 }
 button:focus{
 	outline: none;
+}
+a{
+	color: #333;
+}
+a:hover{
+	text-decoration: none;
 }
 /* set bootstrap's components to be have a hand style */
 .nav, .pagination, .carousel, .panel-title a{

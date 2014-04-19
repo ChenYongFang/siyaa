@@ -1,0 +1,124 @@
+/* 页面公用样式 */
+body{
+	background: #f0f0f0;
+}
+.market-h .nav-list{
+	font-size: 1.6em;
+	line-height: 1;
+	padding: 4px 0;
+	background: #e5e5e5;
+	text-align: center;
+	white-space: nowrap;
+	box-shadow: 0 1px 2px #cbcbcb;
+}
+.market-h .nav-list .glyphicon-search,.market-h .nav-list .glyphicon-align-justify{
+	margin-right: 15%;
+}
+.market-h .nav-list .left,.market-h .nav-list .right{
+	width: 30%;
+	padding: 6px 0;
+}
+.market-h .nav-list a{
+	color: #333;
+	cursor: pointer;
+	text-decoration: none;
+}
+.market-h .nav-list .left{
+	float: left;
+	position: relative;
+	box-shadow: 1px 0 #cbcbcb;
+	border-right: 1px solid #fff;
+}
+/* modal nav list style */
+#drop-back{
+	z-index: 1030;
+	opacity: 0.5;
+	background: #000;
+}
+#drop-navlist,#drop-back{
+	top: 44px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: fixed;
+}
+#drop-navlist{
+	z-index: 1040;
+	display: none;
+}
+#drop-navlist > ul{
+	width: 50%;
+	padding: 0 10px;
+	list-style: none;
+	position: relative;
+	background: #f0f0f0;
+}
+#drop-navlist > ul li{
+	border-bottom:1px solid #fff;
+}
+#drop-navlist > ul li:last-child{
+	border: none;
+}
+#drop-navlist > ul li:last-child a{
+	border: none;
+}
+#drop-navlist > ul li a{
+	display: block;
+	color: #656565;
+	padding: 0 10px;
+	line-height: 2.8;
+	text-decoration: none;
+	border-bottom: 1px solid #cbcbcb;
+}
+.market-h .nav-list .mid{
+	width: 40%;
+	float: left;
+	padding: 6px 0;
+}
+.market-h .nav-list .right{
+	float: right;
+	box-shadow: -1px 0 #fff;
+	border-left: 1px solid #cbcbcb;
+}
+/* 公用商品展示更多样式 */
+section div.more{
+	margin-top: 15px;
+	padding: 6px 15px;
+	border-top: 1px solid #c9c9c9;
+}
+section div.more a{
+	float: right;
+	color: #808080;
+	position: relative;
+	padding-right: 10px;
+	text-decoration: none;
+}
+section div.more a:after{
+	top: 6px;
+	right: 0;
+	width: 8px;
+	height: 8px;
+	content: '';
+	transform:rotate(45deg);
+	-webkit-transform:rotate(45deg);
+	position: absolute;
+	border: solid #666666;
+	border-width: 1px 1px 0 0;
+}
+/* 公用商品类型分割样式 */
+.product-list{
+	margin-top: 48px;
+}
+section.wrap-type:first-child{
+	border: none;
+}
+section.wrap-type{
+	border-top: 10px solid #e5e5e5;
+}
+section.wrap-type .item{
+	box-shadow: 0 0 2px #a7a7a7;
+}
+/* 公用商品类型标题样式 */
+section.wrap-type .title{
+	font-size: 1em;
+}

@@ -1,0 +1,24 @@
+section.wrap-type .item .item-info{
+	background: #fff;
+	padding: 10px 15px;
+	border-top: 1px solid #e6e5e5;
+}
+section.wrap-type .item .item-info > div{
+	float: left;
+	width: 68%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+section.wrap-type .item-info > div span{
+	color: #fd4323;
+	display: block;
+}
+section.wrap-type .item .item-info button{
+	width: 32%;
+	color: #fff;
+	float: right;
+	margin-top: 6px;
+	padding: 4px 10px;
+	border-radius: 2px;
+	background: #fd4323;
+}
