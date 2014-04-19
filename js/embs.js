@@ -26,7 +26,7 @@
             }
             parts.push(key + '=' + v);
         })
-    })
+    });
 
     return parts.join('&');
  }
@@ -48,6 +48,7 @@
  			url:'/user',
  			data:
             {
+                title:'用户中心',
                 css:'/css/user.css'
             },
  			templateUrl:'views/user.html'
@@ -57,6 +58,7 @@
  		'user.login',
  		{
  			url:'/login',
+            title:'-用户登录',
             controller:'UserLogin',
  			templateUrl:'views/partials/u-login.html'
  		}
@@ -88,6 +90,13 @@
 
  				// inject dependencies for state change
  				$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
+                    //change the page's title base on state
+                    var parentTitle = '';
+                    if(toState.data){
+                        parentTitle = toState.data.title || '';
+                    }
+                    elem.find('title').text(parentTitle + toState.title);
 
  					//delete previous state used css file
 
