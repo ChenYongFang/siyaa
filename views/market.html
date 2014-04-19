@@ -1,0 +1,22 @@
+<header class="market-h">
+	<nav class="nav-list clearfix navbar-fixed-top">
+		<div class="left">
+			<span class="glyphicon glyphicon-align-justify" ng-click="dropNav()"></span>
+  			<a class="glyphicon glyphicon-user"></a>
+		</div>
+		<div class="mid">
+			<img src="images/market-logo.png" width="60" />
+		</div>
+		<div class="right">
+			<a class="glyphicon glyphicon-search"></a>
+			<a class="glyphicon glyphicon-shopping-cart"></a>
+		</div>
+	</nav>
+</header>
+<div ui-view></div>
+<div id="drop-navlist">
+	<ul role="menu" ng-init="listType()">
+		<li ng-click="dropNav()"><a href="#/9/markettwo">◎ 全部商品</a></li>
+		<li ng-click="dropNav()" ng-repeat="type in types"><a href="#">◎ {{type.name}}</a></li>
+	</ul>
+</div>
