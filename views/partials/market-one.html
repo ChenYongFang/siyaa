@@ -81,51 +81,54 @@
 		border-left: 1px solid #cbcbcb;
 	}
 	.product-list{
-		padding: 0 10%;
 		margin-top: 48px;
 	}
-	.product-list .title{
+	section.wrap-type:first-child{
+		border: none;
+	}
+	section.wrap-type{
+		border-top: 10px solid #e5e5e5;
+	}
+	section.wrap-type .title{
 		font-size: 1em;
 	}
-	.product-list > .row{
-		margin: 8px 0 0;
-	}
-	.product-list > .row > div{
-		padding: 0;
-	}
-	.product-list .row > div .left{
-		margin-right: 4px;
-		background: #fff;
+	section.wrap-type .item{
 		box-shadow: 0 0 2px #a7a7a7;
 	}
-	.product-list .row > div .right{
-		margin-left:4px;
+	section.wrap-type .item .item-info{
+		padding: 10px 15px;
 		background: #fff;
-		box-shadow: 0 0 2px #a7a7a7;
 	}
-	.product-list  .row > div .b-info{
-		line-height: 1.2;
-		padding: 5px;
-		background: #e5e5e5;
-		border-top: 1px solid #c9c9c9;
+	section.wrap-type .item .item-info > div{
+		float: left;
+		width: 68%;
+		white-space: nowrap;
+		overflow: hidden;
 	}
-	.product-list .row > div .b-info span{
+	section.wrap-type .item-info > div span{
 		display: block;
-		margin-top: 3px;
 	}
-	.product-list > .more{
-		padding: 6px 20px;
-		margin: 15px -10px 0;
+	section.wrap-type .item .item-info button{
+		width: 32%;
+		color: #fff;
+		float: right;
+		margin-top: 6px;
+		padding: 4px 15px;
+		border-radius: 2px;
+	}
+	section.wrap-type .more{
+		margin-top: 15px;
+		padding: 6px 15px;
 		border-top: 1px solid #c9c9c9;
 	}
-	.product-list > .more a{
-		color: #808080;
+	section.wrap-type .more a{
 		float: right;
+		color: #808080;
 		position: relative;
 		padding-right: 10px;
 		text-decoration: none;
 	}
-	.product-list > .more a:after{
+	section.wrap-type .more a:after{
 		top: 6px;
 		right: 0;
 		width: 8px;
@@ -136,11 +139,6 @@
 		position: absolute;
 		border: solid #666666;
 		border-width: 1px 1px 0 0;
-	}
-	.product-list > hr{
-		height: 10px;
-		margin: 0 -12%;
-		background: #e5e5e5;
 	}
 </style>
 <header class="market-h">
@@ -159,31 +157,22 @@
 	</nav>
 </header>
 <div class="container product-list">
-	<h4 class="title">◎ 啤酒</h4>
-	<div class="row">
-		<div class="col-xs-6">
-			<div class="left">
-				<img class="img-responsive" src="views/images/01.jpg" />
-				<div class="b-info">
+	<section class="wrap-type">
+		<h4 class="title">◎ 啤酒</h4>
+		<div class="item">
+			<img class="img-responsive" src="views/images/02.jpg" />
+			<div class="item-info clearfix">
+				<div>
 					法国科翠思啤酒
-					<span ng-class="shop_f_color_1">￥2360.00</span>
+					<span ng-class="shop_f_color_1">￥1580.00</span>
 				</div>
+				<button ng-class="shop_b_color_1">查看详情</button>
 			</div>
 		</div>
-		<div class="col-xs-6">
-			<div class="right">
-				<img class="img-responsive" src="views/images/01.jpg" />
-				<div class="b-info">
-					法国科翠思啤酒
-					<span ng-class="shop_f_color_1">￥2360.00</span>
-				</div>
-			</div>
+		<div class="more clearfix">
+			<a href="#/">更多</a>
 		</div>
-	</div>
-	<div class="more clearfix">
-		<a href="#/">更多</a>
-	</div>
-	<hr>
+	</section>
 </div>
 <div id="drop-navlist">
 	<ul role="menu" ng-init="listType()">

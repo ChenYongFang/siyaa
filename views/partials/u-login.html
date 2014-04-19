@@ -1,8 +1,9 @@
 <div id="wrap-login">
-	<form name="login_form" method="post">
-		<div ng-class="{'has-error':login_form.uname.$error.pattern && login_form.uname.$dirty}" class="form-group">
-			<div ng-show="login_form.uname.$dirty">
-				<label ng-show="login_form.uname.$invalid" class="help-block">用户名输入错误</label>
+	<form novalidate name="login_form" method="post" ng-submit="login()">
+		<div ng-class="{'has-error':login_form.uname.$dirty && login_form.uname.$invalid}" class="form-group">
+			<div ng-show="login_form.uname.$dirty && login_form.uname.$invalid">
+				<label ng-show="login_form.uname.$error.required" class="help-block">请输入您的用户名</label>
+				<label ng-show="login_form.uname.$error.pattern" class="help-block">用户名输入错误</label>
 			</div>
 			<div class="wrap-uname">
 				<input name="uname"
@@ -15,7 +16,12 @@
 					placeholder="登录账号">
 			</div>
 		</div>
-		<div class="form-group">
+		<div ng-class="{'has-error':login_form.upwd.$dirty && login_form.upwd.$invalid}" class="form-group">
+			<div ng-show="login_form.upwd.$dirty && login_form.upwd.$invalid">
+				<label ng-show="login_form.upwd.$error.required" class="help-block">请输入您的密码</label>
+				<label ng-show="login_form.upwd.$error.pattern" class="help-block">密码输入错误</label>
+				<label ng-show="login_form.upwd.$error.minlength" class="help-block">您输入的密码长度不够，少输入？</label>
+			</div>
 			<div class="wrap-upwd">
 				<input name="upwd"
 					type="password"
@@ -27,6 +33,6 @@
 					placeholder="登录密码">
 			</div>
 		</div>
-		<button ng-disabled="login_form.$invalid" type="submit" ng-click="login()" class="btn-block">登　录</button>
+		<button ng-disabled="login_form.$invalid" type="submit" class="btn-block">登　录</button>
 	</form>
 </div>
