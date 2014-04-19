@@ -27,3 +27,87 @@
  	}
 
  }]);
+
+
+
+ //define market modul controller
+ EMBS.controller('Market',['$scope','DataService',function($scope,DataService){
+ 	$scope.types = [];
+ 	$scope.types[0] = {id:1,name:'啤酒饮料'};
+ 	$scope.types[1] = {id:2,name:'风味小吃'};
+ 	$scope.types[2] = {id:3,name:'时令水果'};
+ 	$scope.types[3] = {id:4,name:'棋牌道具'};
+ 	$scope.types[4] = {id:5,name:'特色服务'};
+ 	console.info('listType',$scope.types)
+
+ 	//header's drop modal
+ 	$scope.dropNav = function(){
+ 		if(!angular.element('#drop-back').length){
+ 			angular.element('#drop-navlist').css('display','block');
+ 			angular.element('body').append('<div id="drop-back"><div>');
+ 		}else{
+ 			angular.element('#drop-navlist').css('display','none');
+ 			angular.element('#drop-back').remove();
+ 		}
+ 	}
+ }]);
+
+ EMBS.controller('MarketHome',['$scope','DataService',function($scope,DataService){
+ 	$scope.typeProducts = {
+ 		totalitem:20,
+ 		totalpage:10,
+ 		types:
+ 		[
+ 			{
+ 				name:'啤酒饮料',
+ 				items:[
+ 					{
+ 						name:'法国科翠思啤酒',
+ 						image:'images/test/01.jpg',
+ 						saleprice:236.00
+ 					},
+ 					{
+ 						name:'雪花啤酒',
+ 						image:'images/test/01.jpg',
+ 						saleprice:5.00
+ 					},
+ 					{
+ 						name:'金威啤酒',
+ 						image:'images/test/01.jpg',
+ 						saleprice:10.00
+ 					},
+ 					{
+ 						name:'纯生啤酒',
+ 						image:'images/test/01.jpg',
+ 						saleprice:5.00
+ 					}
+ 				]
+ 			},
+ 			{
+ 				name:'风味小吃',
+ 				items:[
+ 					{
+ 						name:'白记牛肉水饺|火锅白肉水饺',
+ 						image:'images/test/01.jpg',
+ 						saleprice:236.00
+ 					},
+ 					{
+ 						name:'火腿萝卜丝酥饼|油炸糖糕',
+ 						image:'images/test/01.jpg',
+ 						saleprice:48.00
+ 					},
+ 					{
+ 						name:'小绍兴鸡粥|虾仁汤年糕',
+ 						image:'images/test/01.jpg',
+ 						saleprice:1000.00
+ 					},
+ 					{
+ 						name:'食物营养介绍--稻米',
+ 						image:'images/test/01.jpg',
+ 						saleprice:50.00
+ 					}
+ 				]
+ 			}
+ 		]
+ 	}
+ }])

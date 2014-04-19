@@ -94,7 +94,6 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  					//异常代码判断
  					case 10:
  					case 100:
- 						alert(data._code);
  						ModalService.openWithDefaultTitle(ERRCODEMSG[data._code]);
  						break;
  					default:
