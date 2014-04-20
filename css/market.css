@@ -107,7 +107,7 @@ section div.more a:after{
 }
 /* 公用商品类型分割样式 */
 .product-list{
-	margin-top: 48px;
+	margin: 48px auto 70px;
 }
 section.wrap-type:first-child{
 	border: none;
