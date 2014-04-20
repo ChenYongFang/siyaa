@@ -1,22 +1,25 @@
 /*
- * angular-embs Application's controller
+ * embs application controller definition
  * autohr: Jeremy
  * date: 2014.04.16
- * embs application controller definition
  * Version: 1.0
  * License: siyaa inc
  */
 
- // defin layout template controller
+  /* EMBS application common controller section */
  EMBS.controller('InitHomeNav',['$scope','DataService',function($scope,DataService){
- 	var params = {pagenum:1,pagesize:9,pid:''};
-	DataService.get({url:'navigation/list4client',params:params,callback:function(data){
-		$scope.menus = data.items;
-	},cache:true});
+    var params = {pagenum:1,pagesize:9,pid:''};
+    DataService.get({url:'navigation/list4client',params:params,callback:function(data){
+        $scope.menus = data.items;
+    },cache:true});
+
  }])
 
+
+
  // define user modul controller
- EMBS.controller('UserLogin',['$scope','ModalService','DataService',function($scope,ModalService,DataService){
+ var UserModule = angular.module('userModule',[]);
+ UserModule.controller('UserLogin',['$scope','ModalService','DataService',function($scope,ModalService,DataService){
 
  	$scope.login = function(){
  		DataService.post({url:'usermgr/user/mobile/login',data:{loginname:$scope.user.uname,password:$scope.user.upwd},callback:function(data){
@@ -31,28 +34,33 @@
 
 
  //define market modul controller
- EMBS.controller('Market',['$scope','DataService',function($scope,DataService){
+ var MarketModule = angular.module('marketModule',[]);
+ MarketModule.controller('Market',['$scope','DataService',function($scope,DataService){
  	$scope.types = [];
  	$scope.types[0] = {id:1,name:'啤酒饮料'};
  	$scope.types[1] = {id:2,name:'风味小吃'};
  	$scope.types[2] = {id:3,name:'时令水果'};
  	$scope.types[3] = {id:4,name:'棋牌道具'};
  	$scope.types[4] = {id:5,name:'特色服务'};
- 	console.info('listType',$scope.types)
 
  	//header's drop modal
  	$scope.dropNav = function(){
- 		if(!angular.element('#drop-back').length){
- 			angular.element('#drop-navlist').css('display','block');
- 			angular.element('body').append('<div id="drop-back"><div>');
+
+ 		var dropBack = document.getElementById('drop-back');
+
+ 		var dropNavList = document.getElementById('drop-navlist');
+
+ 		if(!angular.element(dropBack).length){
+ 			angular.element(dropNavList).css('display','block');
+ 			angular.element(document).find('body').append('<div id="drop-back"><div>');
  		}else{
- 			angular.element('#drop-navlist').css('display','none');
- 			angular.element('#drop-back').remove();
+ 			angular.element(dropNavList).css('display','none');
+ 			angular.element(dropBack).remove();
  		}
  	}
  }]);
 
- EMBS.controller('MarketHome',['$scope','DataService',function($scope,DataService){
+ MarketModule.controller('MarketHome',['$scope','DataService',function($scope,DataService){
  	$scope.typeProducts = {
  		totalitem:20,
  		totalpage:10,
@@ -105,6 +113,16 @@
  						name:'食物营养介绍--稻米',
  						image:'images/test/01.jpg',
  						saleprice:50.00
+ 					}
+ 				]
+ 			},
+ 			{
+ 				name:'时令水果',
+ 				items:[
+ 					{
+ 						name:'白富士苹果',
+ 						image:'images/test/01.jpg',
+ 						saleprice:236.00
  					}
  				]
  			}

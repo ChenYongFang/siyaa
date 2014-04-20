@@ -31,7 +31,7 @@
     return parts.join('&');
  }
 
- var EMBS = angular.module('embs',['ui.router','ui.bootstrap']);
+ var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule']);
 
 //inject service provider($stateProvider,$urlRouteProvider) into our application
 
@@ -113,6 +113,8 @@
     //$httpProvider.defaults.headers.post = {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'};
  	
  }]);
+
+
  /* EMBS application directive section */
  //compile the head with extra things such like stylesheet、title etc. 
  EMBS.directive('head', ['$rootScope','$compile',

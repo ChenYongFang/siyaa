@@ -8,7 +8,6 @@
  */
 
 //web modal service
-
 EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 	//show a modal
 	function show(obj){
@@ -75,7 +74,6 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 }]);
 
 //basic data service
-
  EMBS.factory('DataService',['$http','$log','ModalService',function($http,$log,ModalService){
 
  	var baseDataUrl = '/embs/';
@@ -107,34 +105,47 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  	}
 
  	return {
- 		//处理远程请求方法 url, params, callback,errCollback,cache
+ 		//advanced get request to server
  		get:function(options){
  			// default to be no cache
  			if(!options.cache)
  				options.cache = false;
- 			$http.get(baseDataUrl+options.url,{params:options.params,cache:options.cache}).success(function(data){
+ 			$http.get(baseDataUrl + options.url,{params:options.params,cache:options.cache}).success(function(data){
  				preCallback(data,options.callback);
+ 				$log.debug('GetHttp: ',options.params,data);
  			}).error(function(data,status){
- 				$log.info('GetHttpError：'+status+'  Params:'+params);
+ 				$log.error('GetHttpError：' + status + '  Params:',options.params);
  				preCallback(data,options.callback,status,options.errCollback);
  			});
  		},
+ 		//simple request to server with future return data
+ 		request:function(url,params,cache){
+
+ 			this.get({url:url,params:params,cache:cache,callback:function(data){
+ 				
+ 			}});
+
+ 		},
+ 		//advanced post request with normal form data to server
  		post:function(options){
  			/* replace the angularjs's default post behavior to not be normal form post behavior */
  			$http.defaults.headers.post = {'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'};
 
- 			$http.post(baseDataUrl+options.url,angular.params(options.data)).success(function(data){
+ 			$http.post(baseDataUrl + options.url,angular.params(options.data)).success(function(data){
  				preCallback(data,options.callback);
+ 				$log.debug('PostHttp: ',options.data,data);
  			}).error(function(data,status){
- 				$log.info('PostHttpError：'+status+'  Params:'+options.params);
+ 				$log.error('PostHttpError：' + status + '  Params:',options.params);
  				preCallback(data,options.callback,status,options.errCollback);
  			});
  		},
+ 		//advanced post request with json data to server
  		postJson:function(options){
- 			$http.post(baseDataUrl+options.url,angular.params(options.data)).success(function(data){
+ 			$http.post(baseDataUrl + options.url,angular.params(options.data)).success(function(data){
  				preCallback(data,options.callback);
+ 				$log.debug('PostJsonHttp: ',options.data,data);
  			}).error(function(data,status){
- 				$log.info('PostJsonHttpError：'+status+'  Params:'+options.params);
+ 				$log.error('PostJsonHttpError：' + status + '  Params:',options.params);
  				preCallback(data,options.callback,status,options.errCollback);
  			});
  		}
