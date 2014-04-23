@@ -112,9 +112,9 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  				options.cache = false;
  			$http.get(baseDataUrl + options.url,{params:options.params,cache:options.cache}).success(function(data){
  				preCallback(data,options.callback);
- 				$log.debug('GetHttp: ',options.params,data);
+ 				$log.debug('GetHttp: ',options.url,options.params,data);
  			}).error(function(data,status){
- 				$log.error('GetHttpError：' + status + '  Params:',options.params);
+ 				$log.error('GetHttpError：' + status + '  Url:' + options.url + '  Params:',options.params);
  				preCallback(data,options.callback,status,options.errCollback);
  			});
  		},
@@ -133,9 +133,9 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 
  			$http.post(baseDataUrl + options.url,angular.params(options.data)).success(function(data){
  				preCallback(data,options.callback);
- 				$log.debug('PostHttp: ',options.data,data);
+ 				$log.debug('PostHttp: ',options.url,options.data,data);
  			}).error(function(data,status){
- 				$log.error('PostHttpError：' + status + '  Params:',options.params);
+ 				$log.error('PostHttpError：' + status +  '  Url:' + options.url + '  Params:',options.params);
  				preCallback(data,options.callback,status,options.errCollback);
  			});
  		},
@@ -143,9 +143,9 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  		postJson:function(options){
  			$http.post(baseDataUrl + options.url,angular.params(options.data)).success(function(data){
  				preCallback(data,options.callback);
- 				$log.debug('PostJsonHttp: ',options.data,data);
+ 				$log.debug('PostJsonHttp: ',options.url,options.data,data);
  			}).error(function(data,status){
- 				$log.error('PostJsonHttpError：' + status + '  Params:',options.params);
+ 				$log.error('PostJsonHttpError：' + status +  '  Url:' + options.url + '  Params:',options.params);
  				preCallback(data,options.callback,status,options.errCollback);
  			});
  		}

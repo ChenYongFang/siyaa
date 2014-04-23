@@ -60,72 +60,23 @@
  	}
  }]);
 
- MarketModule.controller('MarketHome',['$scope','DataService',function($scope,DataService){
- 	$scope.typeProducts = {
- 		totalitem:20,
- 		totalpage:10,
- 		types:
- 		[
- 			{
- 				name:'啤酒饮料',
- 				items:[
- 					{
- 						name:'法国科翠思啤酒',
- 						image:'images/test/01.jpg',
- 						saleprice:236.00
- 					},
- 					{
- 						name:'雪花啤酒',
- 						image:'images/test/01.jpg',
- 						saleprice:5.00
- 					},
- 					{
- 						name:'金威啤酒',
- 						image:'images/test/01.jpg',
- 						saleprice:10.00
- 					},
- 					{
- 						name:'纯生啤酒',
- 						image:'images/test/01.jpg',
- 						saleprice:5.00
- 					}
- 				]
- 			},
- 			{
- 				name:'风味小吃',
- 				items:[
- 					{
- 						name:'白记牛肉水饺|火锅白肉水饺',
- 						image:'images/test/01.jpg',
- 						saleprice:236.00
- 					},
- 					{
- 						name:'火腿萝卜丝酥饼|油炸糖糕',
- 						image:'images/test/01.jpg',
- 						saleprice:48.00
- 					},
- 					{
- 						name:'小绍兴鸡粥|虾仁汤年糕',
- 						image:'images/test/01.jpg',
- 						saleprice:1000.00
- 					},
- 					{
- 						name:'食物营养介绍--稻米',
- 						image:'images/test/01.jpg',
- 						saleprice:50.00
- 					}
- 				]
- 			},
- 			{
- 				name:'时令水果',
- 				items:[
- 					{
- 						name:'白富士苹果',
- 						image:'images/test/01.jpg',
- 						saleprice:236.00
- 					}
- 				]
- 			}
- 		]
+ MarketModule.controller('MarketTypeGoods',['$scope','DataService','$stateParams',function($scope,DataService,$stateParams){
+
+ 	pageTypeGoods();
+
+ 	$scope.moreTypeGoods = function(){
+ 		//alert('true');
  	}
+
+ 	function pageTypeGoods(){
+ 		DataService.get({url:'market/goods/query',params:
+ 		{
+ 			pagesize:2,pagenum:1,search:'',tid:$stateParams.tid,ordertype:0
+ 		},callback:function(data){
+ 			if($scope.typeGoods)
+ 				data.items = data.items.concat($scope.typeGoods.items);
+ 			$scope.typeGoods = data;
+ 		}});
+ 	}
+
  }])

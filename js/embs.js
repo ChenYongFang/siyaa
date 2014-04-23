@@ -80,34 +80,41 @@
         }
     )
     .state(
-        'market.home',
+        'market.goods',
         {
-            url:'/home',
+            url:'/goods/:tid',
             title:'-首页',
-            css:'/css/market-two.css',
-            templateUrl:'views/partials/market-two.html',
-            controller:'MarketHome'
+            css:'/css/type-goods.css',
+            templateUrl:'views/partials/type-goods.html',
+            controller:'MarketTypeGoods'
         }
     )
-    .state(
-        'market.big',
-        {
-            url:'/big',
-            title:'-首页',
-            css:'/css/market-one.css',
-            templateUrl:'views/partials/market-one.html',
-            controller:'MarketHome'
-        }
-    )
+
 
  	//register lottery route
  	.state(
  		'lottery',
  		{
+            //红色抽奖模板
+            abstract:true,
  			url:'/lottery',
- 			templateUrl:'views/lottery.html'
+            data:
+            {
+                title:'抽奖',
+                css:'/css/lottery-red.css'
+            },
+ 			templateUrl:'views/lottery-red.html'
  		}
- 	);
+ 	)
+    .state(
+        'lottery.wheel',
+        {
+            //转盘
+            url:'wheel',
+            css:'/css/lottery-wheel.css',
+            templateUrl:'views/partials/lottery-wheel.html'
+        }
+    );
 
     //set default http header application/x-www-form-urlencoded
     //$httpProvider.defaults.headers.post = {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'};
@@ -171,12 +178,145 @@
  			}
  		};
  	}
- ]);
+ ])
+//infinit scroll for data handl
+ .directive('infiniteScroll',['$window','$timeout',function($window,$timeout){
+    return {
+
+        restrict: 'A',
+
+        scope: {
+
+            infiniteScroll: '&',
+
+            scrollContainer: '=',
+
+            scrollDistance: '=',
+
+            scrollDisabled: '='
+
+        },
+
+        link:function(scope,elem,attrs){
+
+            var changeContainer , checkWhenEnable , container , handleScrollContainer ,
+
+            handleScrollDisabled , handleScrollDistance , handler , immediateCheck ,
+
+            scrollDistance , scrollEnable;
+
+            // jqLite window DOM object
+            $window = angular.element($window);
+
+            scrollDistance = null;
+
+            scrollEnabled = null;
+
+            checkWhenEnabled = null;
+
+            container = null;
+
+            immediateCheck = true;
+
+            // check when needs to do scroll stuff.
+            handler = function(){
+
+                var containerBottom , elementBottom , remaining , shouldScroll;
+
+                if(container === $window){
+                    containerBottom = container[0].innerHeight + container[0].scrollY;
+                    elementBottom = elem[0].offsetTop + elem[0].offsetHeight;
+                }else{
+                    containerBottom = container[0].offsetHeight;
+                    elementBottom = elem[0].offsetTop - container[0].offsetTop + elem[0].offsetHeight;
+                }
+
+                remaining = elementBottom - containerBottom;
+
+                shouldScroll = remaining <= container[0].innerHeight * scrollDistance + 1;
+
+                if(shouldScroll && scrollEnabled){
+                    //start do scroll stuff.
+                    return scope.infiniteScroll();
+                }else if(shouldScroll){
+                    //if should scroll immediate set checkWhenEnable to be true
+                    return checkWhenEnabled = true;
+                }
+            };
+
+            //element destroy trans.
+            scope.$on('$destroy',function(){
+                return container.off('scroll',handler);
+            });
+
+            //set scroll distance
+            handleScrollDistance = function(v){
+                return scrollDistance = parseInt(v,10) || 0;
+            };
+
+            //when template change it's scrollDistance attr immediate set the scrollDistance
+            scope.$watch('scrollDistance',handleScrollDistance);
+
+            handleScrollDisabled = function(v){
+                scrollEnabled = !v;
+                if(scrollEnabled && checkWhenEnabled){
+                    checkWhenEnabled = false;
+                    return handler();
+                }
+            };
+
+            scope.$watch('scrollDisabled',handleScrollDisabled);
+
+            handleScrollDisabled(scope.scrollDisabled);
+
+            changeContainer = function(newContainer){
+
+                if(container != null){
+                    container.off('scroll',handler);
+                }
+                container = newContainer;
+                if(container != null){
+                    return container.on('scroll',handler);
+                }
+            };
+            // init container to be window
+            changeContainer($window);
+
+            handleScrollContainer = function(newContainer){
+
+                if(!newContainer || newContainer.length === 0){
+                    return false;
+                }
+
+                newContainer = angular.element(newContainer);
+                if(newContainer){
+                    return changeContainer(newContainer);
+                }else{
+                    throw new Exception('invalid scroll-container attribute.');
+                }
+            };
+
+            scope.$watch('scrollContainer',handleScrollContainer);
+
+            handleScrollContainer(scope.scrollContainer || []);
+
+            return $timeout(function(){
+                if(immediateCheck){
+                    return handler();
+                }
+            },0);
+
+        }
+    }
+ }]);
 
 
 /* EMBS application filter section */
+//filter for setSize loop
 EMBS.filter('stepSize',function(){
     return function(data,value){
+        if(!data)
+            return;
         var newData = [];
         for(var i = 0; i < data.length; i+=value){
             newData.push(data[i]);   
