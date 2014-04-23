@@ -81,19 +81,19 @@ body{
 	border-left: 1px solid #cbcbcb;
 }
 /* 公用商品展示更多样式 */
-section div.more{
+.product-list div.more{
 	margin-top: 15px;
 	padding: 6px 15px;
 	border-top: 1px solid #c9c9c9;
 }
-section div.more a{
+.product-list div.more a{
 	float: right;
 	color: #808080;
 	position: relative;
 	padding-right: 10px;
 	text-decoration: none;
 }
-section div.more a:after{
+.product-list div.more a:after{
 	top: 6px;
 	right: 0;
 	width: 8px;
@@ -109,16 +109,10 @@ section div.more a:after{
 .product-list{
 	margin: 48px auto 70px;
 }
-section.wrap-type:first-child{
-	border: none;
-}
-section.wrap-type{
-	border-top: 10px solid #e5e5e5;
-}
-section.wrap-type .item{
+.product-list .item{
 	box-shadow: 0 0 2px #a7a7a7;
 }
 /* 公用商品类型标题样式 */
-section.wrap-type .title{
+.product-list .title{
 	font-size: 1em;
 }
