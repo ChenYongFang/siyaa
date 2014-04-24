@@ -36,12 +36,16 @@
  //define market modul controller
  var MarketModule = angular.module('marketModule',[]);
  MarketModule.controller('Market',['$scope','DataService',function($scope,DataService){
- 	$scope.types = [];
+
+ 	DataService.get({url:'market/goods/type/list',callback:function(data){
+ 		$scope.types = data;
+ 	}});
+ 	/*$scope.types = [];
  	$scope.types[0] = {id:1,name:'啤酒饮料'};
  	$scope.types[1] = {id:2,name:'风味小吃'};
  	$scope.types[2] = {id:3,name:'时令水果'};
  	$scope.types[3] = {id:4,name:'棋牌道具'};
- 	$scope.types[4] = {id:5,name:'特色服务'};
+ 	$scope.types[4] = {id:5,name:'特色服务'};*/
 
  	//header's drop modal
  	$scope.dropNav = function(){
@@ -62,16 +66,21 @@
 
  MarketModule.controller('MarketTypeGoods',['$scope','DataService','$stateParams',function($scope,DataService,$stateParams){
 
+ 	$scope.pagenum = 1;
  	pageTypeGoods();
 
  	$scope.moreTypeGoods = function(){
- 		//alert('true');
+ 		
+ 		if($scope.typeGoods && $scope.typeGoods.totalpage > $scope.pagenum){
+ 			$scope.pagenum ++;
+ 			pageTypeGoods();
+ 		}
  	}
 
  	function pageTypeGoods(){
  		DataService.get({url:'market/goods/query',params:
  		{
- 			pagesize:2,pagenum:1,search:'',tid:$stateParams.tid,ordertype:0
+ 			pagesize:2,pagenum:$scope.pagenum,search:'',tid:$stateParams.tid,ordertype:0
  		},callback:function(data){
  			if($scope.typeGoods)
  				data.items = data.items.concat($scope.typeGoods.items);

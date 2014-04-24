@@ -17,6 +17,6 @@
 <div id="drop-navlist">
 	<ul role="menu" ng-init="listType()">
 		<li ng-click="dropNav()"><a href="#/9/markettwo">◎ 全部商品</a></li>
-		<li ng-click="dropNav()" ng-repeat="type in types"><a href="#">◎ {{type.name}}</a></li>
+		<li ng-click="dropNav()" ng-repeat="type in types"><a href="#/market/goods/{{type.id}}">◎ {{type.name}}</a></li>
 	</ul>
 </div>
