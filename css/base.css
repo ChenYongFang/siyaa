@@ -24,6 +24,12 @@ a{
 a:hover{
 	text-decoration: none;
 }
+.sm-row{
+	display: table;
+}
+.sm-col{
+	display: table-cell;
+}
 /* set bootstrap's components to be have a hand style */
 .nav, .pagination, .carousel, .panel-title a{
 	cursor: pointer;
