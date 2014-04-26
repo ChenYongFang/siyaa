@@ -74,7 +74,7 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 }]);
 
 //basic data service
- EMBS.factory('DataService',['$http','$log','ModalService',function($http,$log,ModalService){
+ EMBS.factory('DataService',['$q','$http','$log','ModalService',function($q,$http,$log,ModalService){
 
  	var baseDataUrl = '/embs/';
 
@@ -121,9 +121,11 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  		//simple request to server with future return data
  		request:function(url,params,cache){
 
+ 			/*var defer = $q.defer();
  			this.get({url:url,params:params,cache:cache,callback:function(data){
- 				
+ 				defer.resolve(data);
  			}});
+ 			return defer.promise;*/
 
  		},
  		//advanced post request with normal form data to server

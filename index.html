@@ -13,19 +13,19 @@
 		<!--nav bar-->
 		<nav id="home-nav" ng-controller="InitHomeNav" class="navbar navbar-fixed-bottom">
 			<div class="navbar-left">
-				<a class="home" title="网站主页"></a>
-				<a class="userinfo" title="用户信息"></a>
+				<a class="glyphicon glyphicon-home" title="网站主页"></a>
+				<a class="glyphicon glyphicon-user" title="用户信息"></a>
 			</div>
 			<div class="navbar-mid dropup">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button>
+				<button type="button" class="dropdown-toggle glyphicon glyphicon-plus-sign" data-toggle="dropdown"></button>
 				<ul class="dropup-menu">
 					<!-- Dropdown menu links -->
 					<li ng-repeat="item in menus"><a href="">{{item.name}}</a></li>
 				</ul>
 			</div>
 			<div class="navbar-right">
-				<a class="goback" title="后退"></a>
-				<a class="refresh" title="刷新"></a>
+				<a class="glyphicon glyphicon-circle-arrow-left" title="后退"></a>
+				<a class="glyphicon glyphicon-refresh" title="刷新"></a>
 			</div>
 		</nav>
 	</body>

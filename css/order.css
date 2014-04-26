@@ -1,0 +1,23 @@
+body{
+	background: #e5e5e5;
+}
+nav.btn-group-justified{
+	height: 40px;
+	background: #f4f4f4;
+	border-bottom: 1px solid #b3b3b3;
+}
+nav.btn-group-justified a{
+	border-radius: 0;
+	border-bottom: 3px solid #f4f4f4;
+}
+nav.btn-group-justified a.active{
+	color: #f15a25;
+	box-shadow: none;
+	-webkit-box-shadow:none;
+	border-bottom-color: #f15a25;
+}
+
+/* 订单列表 */
+.order-list{
+	padding: 15px;
+}

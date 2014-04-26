@@ -7,12 +7,13 @@ body{
 	min-width: 320px;
 	background: url(/images/home-bg.jpg) no-repeat;
 	background-size: cover;
-	-moz-background-size:cover; 
-	-webkit-background-size:cover; 
+	-moz-background-size:cover;
+	-webkit-background-size:cover;
 	font-family: "microsoft yahei", "STHeiti", "Arial", sans-serif;
 }
 button{
 	border: none;
+	background: transparent;
 }
 button:focus{
 	outline: none;
@@ -47,7 +48,8 @@ div.table-cell{
 }
 /* layout navigation bar style */
 #home-nav{
-	background: #000;
+	/*background: #000;*/
+	background: #e6e6e6;
 }
 .navbar-mid,.navbar-left{
 	float: left;
@@ -76,13 +78,16 @@ div.table-cell{
 	margin-left: 0;
 }
 #home-nav > div > a,#home-nav > div > button{
-	height: 24px;
-	width: 25px;
+	font-size: 22px;
+	color: #15aca7;
 	display: inline-block;
-	background: url(/images/home-nav-icon.png) no-repeat;
-	background-size: 25px;
+	/*background: url(/images/home-nav-icon.png) no-repeat;
+	background-size: 25px;*/
 }
-#home-nav > div a.userinfo{
+#home-nav > div > button{
+	padding: 0;
+}
+/*#home-nav > div a.userinfo{
 	background-position: 0 -39px;
 }
 #home-nav > div a.goback{
@@ -94,7 +99,7 @@ div.table-cell{
 #home-nav > div > button{
 	border:none;
 	background-position: 0 -80px;
-}
+}*/
 #home-nav .dropup-menu{
 	width: 100%;
 	margin: 0;
@@ -105,7 +110,7 @@ div.table-cell{
 	display: none;
 	position: absolute;
 	padding: 0 0 15px 0;
-	background: rgba(0, 0, 0, 0.498039);
+	background: rgba(0, 0, 0, 0.5);
 }
 .open > .dropup-menu{
 	display: block !important;

@@ -89,6 +89,27 @@
             controller:'MarketTypeGoods'
         }
     )
+    .state(
+        'order',
+        {
+            abstract:true,
+            url:'/market/order',
+            data:
+            {
+                title:'微商城-订单',
+                css:'/css/order.css'
+            },
+            templateUrl:'views/order.html'
+        }
+    )
+    .state(
+        'order.list',
+        {
+            url:'/list',
+            title:'列表',
+            templateUrl:'views/partials/order-list.html'
+        }
+    )
 
 
  	//register lottery route

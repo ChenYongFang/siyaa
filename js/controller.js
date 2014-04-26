@@ -12,6 +12,7 @@
     DataService.get({url:'navigation/list4client',params:params,callback:function(data){
         $scope.menus = data.items;
     },cache:true});
+ 	//$scope.menus = DataService.request('navigation/list4client',params,true);
 
  }])
 
