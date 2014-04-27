@@ -110,6 +110,14 @@
             templateUrl:'views/partials/order-list.html'
         }
     )
+    .state(
+        'order.waitpay',
+        {
+            url:'/waitpay',
+            title:'待付款列表',
+            templateUrl:'views/partials/order-wait-pay.html'
+        }
+    )
 
 
  	//register lottery route
