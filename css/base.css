@@ -75,15 +75,17 @@ div.table-cell{
 }
 .navbar-right,.navbar-mid,.navbar-left{
 	height: 50px;
-	padding:12.5px;
+	padding:13px;
 }
 .navbar-left > a,.navbar-right > a{
+	height: 24px;
 	margin-left: 25px;
 }
 .navbar-left > a:first-child,.navbar-right > a:first-child{
 	margin-left: 0;
 }
 #home-nav > div > a,#home-nav > div > button{
+	height: 24px;
 	font-size: 22px;
 	color: #15aca7;
 	display: inline-block;
