@@ -15,9 +15,9 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 		// default template
 		var defaultTpl = '';
 
-		if(obj.tmpUrl){
+		if(obj.templateUrl){
 			// set templateUrl
-			defaultTpl = obj.tmpUrl;
+			defaultTpl = obj.templateUrl;
 		}else if(obj.template){
 			//inline template 
 			$modal.open({
@@ -46,6 +46,8 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
 	}
 
 	return{
+		//advance modal service
+		show:show,
 		// open a modal.
 		open:function(title,content){
 			show({

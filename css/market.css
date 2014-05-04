@@ -2,7 +2,7 @@
 body{
 	background: #f0f0f0;
 }
-.market-h .nav-list{
+nav.h-nav-list{
 	font-size: 1.6em;
 	line-height: 1;
 	padding: 4px 0;
@@ -11,74 +11,70 @@ body{
 	white-space: nowrap;
 	box-shadow: 0 1px 2px #cbcbcb;
 }
-.market-h .nav-list .glyphicon-search,.market-h .nav-list .glyphicon-align-justify{
+.h-nav-list .glyphicon-search,.h-nav-list .glyphicon-align-justify{
 	margin-right: 15%;
 }
-.market-h .nav-list .left,.market-h .nav-list .right{
+.h-nav-list .left,.h-nav-list .right{
 	width: 30%;
 	padding: 6px 0;
 }
-.market-h .nav-list a{
+.h-nav-list a{
 	color: #333;
 	cursor: pointer;
 	text-decoration: none;
 }
-.market-h .nav-list .left{
+.h-nav-list .left{
 	float: left;
 	position: relative;
 	box-shadow: 1px 0 #cbcbcb;
 	border-right: 1px solid #fff;
 }
+.h-nav-list .mid{
+	width: 40%;
+	float: left;
+	padding: 6px 0;
+}
+.h-nav-list .right{
+	float: right;
+	box-shadow: -1px 0 #fff;
+	border-left: 1px solid #cbcbcb;
+}
 /* modal nav list style */
-#drop-back{
-	z-index: 1030;
-	opacity: 0.5;
-	background: #000;
+.modal-dialog{
+	margin: 0;
 }
-#drop-navlist,#drop-back{
-	top: 44px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	position: fixed;
-}
-#drop-navlist{
-	z-index: 1040;
-	display: none;
-}
-#drop-navlist > ul{
+.modal-content{
 	width: 50%;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	background: #f0f0f0;
+}
+.modal-backdrop,.modal-dialog{
+	margin-top: 44px;
+}
+#drop-navlist {
+	margin: 0;
 	padding: 0 10px;
 	list-style: none;
 	position: relative;
-	background: #f0f0f0;
 }
-#drop-navlist > ul li{
+#drop-navlist li{
 	border-bottom:1px solid #fff;
 }
-#drop-navlist > ul li:last-child{
+#drop-navlist li:last-child{
 	border: none;
 }
-#drop-navlist > ul li:last-child a{
+#drop-navlist li:last-child a{
 	border: none;
 }
-#drop-navlist > ul li a{
+#drop-navlist li a{
 	display: block;
 	color: #656565;
 	padding: 0 10px;
 	line-height: 2.8;
 	text-decoration: none;
 	border-bottom: 1px solid #cbcbcb;
-}
-.market-h .nav-list .mid{
-	width: 40%;
-	float: left;
-	padding: 6px 0;
-}
-.market-h .nav-list .right{
-	float: right;
-	box-shadow: -1px 0 #fff;
-	border-left: 1px solid #cbcbcb;
 }
 /* 公用商品展示更多样式 */
 .product-list div.more{
