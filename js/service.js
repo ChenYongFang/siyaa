@@ -79,7 +79,7 @@ EMBS.factory('ModalService',['$modal','$log',function($modal,$log){
  	var baseDataUrl = '/embs/';
 
  	function preCallback(data,callback,status,errCollback){
- 		if(errCollback && typeof(errCollback) == "function"){
+ 		if(errCollback && typeof(errCollback) === "function"){
 
  			//Http请求异常处理
  			errCollback(data,status);

@@ -63,6 +63,15 @@
  			templateUrl:'views/partials/u-login.html'
  		}
  	)
+    .state(
+        'user.myrecom',
+        {
+            url:'/myrecom',
+            title:'-我的推荐人',
+            css:'/css/myrecom.css',
+            templateUrl:'views/partials/u-myrecom.html'
+        }
+    )
 
     //register market route
     .state(
