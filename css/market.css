@@ -2,6 +2,9 @@
 body{
 	background: #f0f0f0;
 }
+#main-view{
+	padding-top: 48px;
+}
 nav.h-nav-list{
 	font-size: 1.6em;
 	line-height: 1;
@@ -102,9 +105,6 @@ nav.h-nav-list{
 	border-width: 1px 1px 0 0;
 }
 /* 公用商品类型分割样式 */
-.product-list{
-	margin: 48px auto 70px;
-}
 .product-list .item{
 	box-shadow: 0 0 2px #a7a7a7;
 }
