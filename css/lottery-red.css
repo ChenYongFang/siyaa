@@ -2,21 +2,21 @@ body{
 	background: #90150d;
 }
 header.title{
+	color: #fcb42e;
 	height: 40px;
-	position: relative;
+	padding: 0 20px;
+	line-height: 40px;
 	background: #631e17;
 }
 header .wrap-jf{
-	right: 5px;
-	color: #671e17;
-	min-width: 45px;
-	padding: 5px;
-	text-align: center;
-	position: absolute;
-	background: url(/images/lottery/top-jf-bg.png) no-repeat;
-	background-size: 100% 100%;
+	height: 40px;
+	float: right;
+	color: #fff;
+	padding-left: 30px;
+	font-size: 1.2em;
+	background: url(/images/lottery/top-jf-bg.png) no-repeat center left;
+	background-size: 24px;
 }
-header .wrap-jf span{
-	display: block;
+header .wrap-jf small{
 	font-size: 0.6em;
 }
