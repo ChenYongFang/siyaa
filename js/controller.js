@@ -106,7 +106,7 @@
  			canvObj.height = canvImgBg.offsetHeight;
 
  			//evaluate the prizes
- 			var gifts = ['苹果','香蕉'];
+ 			var gifts = ['苹果','香蕉','美女'];
 
 
  			drawPrize(colors,gifts);
@@ -126,7 +126,7 @@
  			var shapeSize = calculateRadianSize(gifts);
  			var arc = Math.PI / shapeSize;
  			var startAngle = 0;
- 			var textRadius = circleX / 2 - 8;
+ 			var textRadius = circleX / 2 - 4;
  			var prizes = getShpaePrizes(gifts,shapeSize);
  			//start draw each prize with diffrent color
  			for(var i=0;i<prizes.length;i++){
@@ -137,7 +137,6 @@
  				var angle = startAngle + i * arc;
  				ctx.arc(circleX,circleY,outsideRadius,angle, angle + arc,false);
  				ctx.arc(circleX,circleY,insideRadius,angle + arc, angle,true);
-
  				ctx.fill();
 
  				//start to darw prize
@@ -147,27 +146,21 @@
 
  				var text = prizes[i];
 
- 				/*if(text.length == 4){
+ 				ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
+ 				ctx.rotate(angle + arc / 2 + Math.PI / 2);
 
+ 				if(text.length > 3){
  					var tmpStr = text[0] + text[1];
- 					console.info(tmpStr);
- 					ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
  					ctx.fillText(tmpStr, -ctx.measureText(tmpStr).width / 2, 0);
  					tmpStr = text[2] + text[3];
- 					console.info(tmpStr);
- 					ctx.translate(0, 0);
+ 					ctx.translate(0, 15);
  					ctx.fillText(tmpStr, -ctx.measureText(tmpStr).width / 2, 0);
-
  				}else{
- 					ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
- 					ctx.restore();
- 				}*/
+ 					ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+ 				}
 
- 				ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
-				ctx.rotate(angle + arc / 2 + Math.PI / 2);
-
-        		ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
         		ctx.restore();
+
  			}
 
  			//generate full arc shape prize with gifts and other text
@@ -176,8 +169,7 @@
  				if(gifts > 11)
  					return gifts;
 
- 				//var virtualPrizes = ['在接再励','祝你好运','恭喜发财','加油','在转一次'];
- 				var virtualPrizes = ['在接','好运','发财','加油','一次'];
+ 				var virtualPrizes = ['在接再励','祝你好运','恭喜发财','加油','在转一次'];
 
  				var prizes = new Array(size * 2);
  				
