@@ -364,3 +364,15 @@ EMBS.filter('stepSize',function(){
         return newData;
     }
 })
+
+
+/* EMBS common function section */
+function GetRandomNum(Min,Max){ 
+
+    var Range = Max - Min; 
+
+    var Rand = Math.random(); 
+
+    return(Min + Math.round(Rand * Range)); 
+
+}

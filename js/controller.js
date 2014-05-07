@@ -12,8 +12,6 @@
     DataService.get({url:'navigation/list4client',params:params,callback:function(data){
         $scope.menus = data.items;
     },cache:true});
- 	//$scope.menus = DataService.request('navigation/list4client',params,true);
-
  }])
 
 
@@ -55,18 +53,6 @@
 
  			}});
  		}]});
-
- 		/*var dropBack = document.getElementById('drop-back');
-
- 		var dropNavList = document.getElementById('drop-navlist');
-
- 		if(!angular.element(dropBack).length){
- 			angular.element(dropNavList).css('display','block');
- 			angular.element(document).find('body').append('<div id="drop-back"><div>');
- 		}else{
- 			angular.element(dropNavList).css('display','none');
- 			angular.element(dropBack).remove();
- 		}*/
  	}
  }]);
 
@@ -120,26 +106,30 @@
  			canvObj.height = canvImgBg.offsetHeight;
 
  			//evaluate the prizes
- 			var prizes = [];
+ 			var gifts = ['苹果','香蕉'];
 
- 			drawPrize(colors);
+
+ 			drawPrize(colors,gifts);
 
  		});
 
  		var ctx = canvObj.getContext('2d');
 
  		//draw radian shape prize.
- 		function drawPrize(colors,prizes){
+ 		function drawPrize(colors,gifts){
 
  			//draw prize center point
  			var circleX = canvObj.width / 2 + canvObj.width * 0.009;
  			var circleY = canvObj.height / 2 + canvObj.height * 0.08;
  			var insideRadius = 10;
  			var outsideRadius = canvObj.width * 0.62 / 2;
- 			var arc = Math.PI / 6;
+ 			var shapeSize = calculateRadianSize(gifts);
+ 			var arc = Math.PI / shapeSize;
  			var startAngle = 0;
+ 			var textRadius = circleX / 2 - 8;
+ 			var prizes = getShpaePrizes(gifts,shapeSize);
  			//start draw each prize with diffrent color
- 			for(var i=0;i<colors.length;i++){
+ 			for(var i=0;i<prizes.length;i++){
 
  				ctx.fillStyle = colors[i];
  				ctx.beginPath();
@@ -153,8 +143,87 @@
  				//start to darw prize
  				ctx.save();
  				ctx.fillStyle = '#fff';
+ 				ctx.font="normal normal bold 14px sans-serif";
 
+ 				var text = prizes[i];
 
+ 				/*if(text.length == 4){
+
+ 					var tmpStr = text[0] + text[1];
+ 					console.info(tmpStr);
+ 					ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
+ 					ctx.fillText(tmpStr, -ctx.measureText(tmpStr).width / 2, 0);
+ 					tmpStr = text[2] + text[3];
+ 					console.info(tmpStr);
+ 					ctx.translate(0, 0);
+ 					ctx.fillText(tmpStr, -ctx.measureText(tmpStr).width / 2, 0);
+
+ 				}else{
+ 					ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
+ 					ctx.restore();
+ 				}*/
+
+ 				ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
+				ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+        		ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+        		ctx.restore();
+ 			}
+
+ 			//generate full arc shape prize with gifts and other text
+ 			function getShpaePrizes(gifts,size){
+
+ 				if(gifts > 11)
+ 					return gifts;
+
+ 				//var virtualPrizes = ['在接再励','祝你好运','恭喜发财','加油','在转一次'];
+ 				var virtualPrizes = ['在接','好运','发财','加油','一次'];
+
+ 				var prizes = new Array(size * 2);
+ 				
+ 				var distance = Math.floor((prizes.length - gifts.length) / 2);
+
+ 				for(var i=0;i<gifts.length;i++){
+
+ 					//after add virtual prizes jump to second prize
+ 					jumpIndex = i * distance;
+ 					prizes[jumpIndex] = gifts[i];
+ 					var tmpPrizes = getRandomVirtualPrizes(virtualPrizes,distance);
+ 					for(var j=0;j<tmpPrizes.length;j++){
+ 						prizes[++jumpIndex] = tmpPrizes[j];
+ 					}
+
+ 				}
+
+ 				function getRandomVirtualPrizes(virtualPrizes,size){
+
+ 					var tmpPrizes = new Array(size);
+ 					for(var i=0;i<tmpPrizes.length;i++){
+ 						tmpPrizes[i] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
+ 					}
+ 					return tmpPrizes;
+
+ 				}
+
+ 				if(!prizes[prizes.length - 1])
+ 					prizes[prizes.length - 1] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
+
+ 				console.debug('prizes',prizes);
+
+ 				return prizes;
+
+ 			}
+
+ 			function calculateRadianSize(gifts){
+ 				//generate eight arc shape
+ 				if(gifts.length < 3)
+ 					return 4;
+ 				//generate ten arc shape
+ 				else if(gifts.length <5)
+ 					return 5;
+ 				//generate twelve arc shape
+ 				else
+ 					return 6;
  			}
 
  		}
