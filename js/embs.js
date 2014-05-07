@@ -31,7 +31,7 @@
     return parts.join('&');
  }
 
- var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule']);
+ var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule','lotteryModule']);
 
 //inject service provider($stateProvider,$urlRouteProvider) into our application
 
@@ -148,8 +148,10 @@
         'lottery.wheel',
         {
             //转盘
-            url:'wheel',
+            url:'/wheel',
+            title:'-大转盘',
             css:'/css/lottery-wheel.css',
+            controller:'LotteryWheel',
             templateUrl:'views/partials/lottery-wheel.html'
         }
     );

@@ -18,7 +18,7 @@
 
 
 
- // define user modul controller
+ // define user module controller
  var UserModule = angular.module('userModule',[]);
  UserModule.controller('UserLogin',['$scope','ModalService','DataService',function($scope,ModalService,DataService){
 
@@ -34,7 +34,7 @@
 
 
 
- //define market modul controller
+ //define market module controller
  var MarketModule = angular.module('marketModule',[]);
  MarketModule.controller('Market',['$scope','DataService','ModalService',function($scope,DataService,ModalService){
 
@@ -95,3 +95,84 @@
  	}
 
  }])
+
+
+
+
+ // define lottery module controller
+ var LotteryModule = angular.module('lotteryModule',[]);
+
+ LotteryModule.controller('LotteryWheel',['$scope',function($scope){
+
+ 	$scope.loadResource = function(){
+
+ 		// draw prize used color
+ 		var colors = ['#cede01','#f7ed12','#f9b52c','#f39801','#dc1a22','#de0788',
+ 						'#b10279','#780c6f','#016dab','#008fc8','#439e35','#8fc320'];
+
+ 		var canvObj = document.getElementById('wheel');
+
+ 		var canvImgBg = document.getElementById('wheel-bg');
+
+ 		angular.element(canvImgBg).on('load',function(e){
+
+ 			canvObj.width = canvImgBg.offsetWidth;
+ 			canvObj.height = canvImgBg.offsetHeight;
+
+ 			//evaluate the prizes
+ 			var prizes = [];
+
+ 			drawPrize(colors);
+
+ 		});
+
+ 		var ctx = canvObj.getContext('2d');
+
+ 		//draw radian shape prize.
+ 		function drawPrize(colors,prizes){
+
+ 			//draw prize center point
+ 			var circleX = canvObj.width / 2 + canvObj.width * 0.009;
+ 			var circleY = canvObj.height / 2 + canvObj.height * 0.08;
+ 			var insideRadius = 10;
+ 			var outsideRadius = canvObj.width * 0.62 / 2;
+ 			var arc = Math.PI / 6;
+ 			var startAngle = 0;
+ 			//start draw each prize with diffrent color
+ 			for(var i=0;i<colors.length;i++){
+
+ 				ctx.fillStyle = colors[i];
+ 				ctx.beginPath();
+
+ 				var angle = startAngle + i * arc;
+ 				ctx.arc(circleX,circleY,outsideRadius,angle, angle + arc,false);
+ 				ctx.arc(circleX,circleY,insideRadius,angle + arc, angle,true);
+
+ 				ctx.fill();
+
+ 				//start to darw prize
+ 				ctx.save();
+ 				ctx.fillStyle = '#fff';
+
+
+ 			}
+
+ 		}
+
+ 		function drawImage(imagePath,x,y){
+ 			if(!x)
+ 				x = 0;
+ 			if(!y)
+ 				y = 0;
+ 			var img = new Image();
+ 			img.src = imagePath;
+
+ 			angular.element(img).on('load',function(e){
+ 				ctx.drawImage(img,x,y);
+ 			});
+
+ 		}
+
+ 	}
+
+ }]);
