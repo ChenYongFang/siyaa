@@ -166,20 +166,22 @@
  			//generate full arc shape prize with gifts and other text
  			function getShpaePrizes(gifts,size){
 
- 				if(gifts > 11)
+ 				if(gifts.length > 11)
  					return gifts;
 
- 				var virtualPrizes = ['在接再励','祝你好运','恭喜发财','加油','在转一次'];
+ 				var virtualPrizes = ['在接再励','祝你好运','恭喜发财','加油','在转一次','谢谢参与'];
 
- 				var prizes = new Array(size * 2);
+ 				var prizesLength = size * 2;
+ 				var prizes = new Array();
  				
- 				var distance = Math.floor((prizes.length - gifts.length) / 2);
+ 				var distance = Math.floor((prizesLength - gifts.length) / gifts.length);
 
  				for(var i=0;i<gifts.length;i++){
 
  					//after add virtual prizes jump to second prize
- 					jumpIndex = i * distance;
+ 					jumpIndex = i * distance + i;
  					prizes[jumpIndex] = gifts[i];
+
  					var tmpPrizes = getRandomVirtualPrizes(virtualPrizes,distance);
  					for(var j=0;j<tmpPrizes.length;j++){
  						prizes[++jumpIndex] = tmpPrizes[j];
@@ -197,8 +199,14 @@
 
  				}
 
- 				if(!prizes[prizes.length - 1])
- 					prizes[prizes.length - 1] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
+ 				var restLoopCount = prizesLength - prizes.length;
+ 				var restIndex = prizes.length;
+ 				for(var i=0;i<restLoopCount;i++){
+ 					prizes[restIndex + i] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
+ 				}
+
+ 				/*if(!prizes[prizes.length - 1])
+ 					prizes[prizes.length - 1] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];*/
 
  				console.debug('prizes',prizes);
 
@@ -208,10 +216,10 @@
 
  			function calculateRadianSize(gifts){
  				//generate eight arc shape
- 				if(gifts.length < 3)
+ 				if(gifts.length < 4)
  					return 4;
  				//generate ten arc shape
- 				else if(gifts.length <5)
+ 				else if(gifts.length < 6)
  					return 5;
  				//generate twelve arc shape
  				else
