@@ -90,6 +90,13 @@
 
  LotteryModule.controller('LotteryWheel',['$scope',function($scope){
 
+ 	//strat to roll wheel
+ 	$scope.startWheel = function(e){
+
+ 		angular.element(e.target).addClass('active');
+ 		console.info(e);
+ 	}
+
  	$scope.loadResource = function(){
 
  		// draw prize used color
@@ -106,7 +113,7 @@
  			canvObj.height = canvImgBg.offsetHeight;
 
  			//evaluate the prizes
- 			var gifts = ['苹果','香蕉','美女'];
+ 			var gifts = [{id:1,name:'美女',rate:1},{id:2,name:'香蕉',rate:2},{id:3,name:'苹果',rate:3}];
 
 
  			drawPrize(colors,gifts);
@@ -126,7 +133,7 @@
  			var shapeSize = calculateRadianSize(gifts);
  			var arc = Math.PI / shapeSize;
  			var startAngle = 0;
- 			var textRadius = circleX / 2 - 4;
+ 			var textRadius = circleX / 2 - 6;
  			var prizes = getShpaePrizes(gifts,shapeSize);
  			//start draw each prize with diffrent color
  			for(var i=0;i<prizes.length;i++){
@@ -142,12 +149,23 @@
  				//start to darw prize
  				ctx.save();
  				ctx.fillStyle = '#fff';
- 				ctx.font="normal normal bold 14px sans-serif";
+ 				ctx.font='normal normal bold 14px sans-serif';
 
  				var text = prizes[i];
 
  				ctx.translate(circleX + Math.cos(angle + arc / 2) * textRadius, circleY + Math.sin(angle + arc / 2) * textRadius);
  				ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+ 				if(angular.isObject(text)){
+
+ 					ctx.font='25px normal';
+ 					ctx.fillText(text.rate,-ctx.measureText(text.rate).width / 2, 0);
+ 					ctx.translate(0, 15);
+ 					ctx.font='14px normal';
+ 					ctx.fillText('等奖',-ctx.measureText('等奖').width / 2, 0);
+ 					ctx.restore();
+ 					continue;
+ 				}
 
  				if(text.length > 3){
  					var tmpStr = text[0] + text[1];
@@ -181,11 +199,32 @@
  					//after add virtual prizes jump to second prize
  					jumpIndex = i * distance + i;
  					prizes[jumpIndex] = gifts[i];
+ 					prizes[jumpIndex].angle = getShapeAngle(size) * (i + 2) + Math.floor(getShapeAngle(size) / 2);
 
  					var tmpPrizes = getRandomVirtualPrizes(virtualPrizes,distance);
  					for(var j=0;j<tmpPrizes.length;j++){
  						prizes[++jumpIndex] = tmpPrizes[j];
  					}
+
+ 				}
+
+ 				function getShapeAngle(size){
+
+ 					var angle = 0;
+
+ 					switch(size){
+ 						case 4:
+ 							angle = 45;
+ 							break 
+ 						case 5:
+ 							angle = 36;
+ 							break;
+ 						case 6:
+ 							angle = 30;
+ 							break;
+ 					}
+
+ 					return angle;
 
  				}
 
@@ -204,9 +243,6 @@
  				for(var i=0;i<restLoopCount;i++){
  					prizes[restIndex + i] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
  				}
-
- 				/*if(!prizes[prizes.length - 1])
- 					prizes[prizes.length - 1] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];*/
 
  				console.debug('prizes',prizes);
 

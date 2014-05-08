@@ -369,10 +369,10 @@ EMBS.filter('stepSize',function(){
 /* EMBS common function section */
 function GetRandomNum(Min,Max){ 
 
-    var Range = Max - Min; 
+    var range = Max - Min; 
 
-    var Rand = Math.random(); 
+    var rand = Math.random();
 
-    return(Min + Math.round(Rand * Range)); 
+    return(Min + Math.round(rand * range)); 
 
 }
