@@ -6,36 +6,29 @@
  * Version: 1.0
  * License: siyaa inc
  */
+ var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule','lotteryModule']);
 
- /* regist some common function for angular */
+/*EMBS.run(['$rootScope','AUTH_EVENTS','AuthService',function($rootScope,AUTH_EVENTS,AuthService){
 
- // serialize from object data
- angular.params = function(params){
-    if (!params) return;
-
-    var parts = [];
-
-    angular.forEach(params,function(value,key){
-        if (value === null || angular.isUndefined(value)) return;
-        if (!angular.isArray(value)) value = [value];
-
-        angular.forEach(value,function(v){
-            //current unsupport the nesting object or array.
-            if (angular.isObject(v)) {
-                v = angular.toJson(v);
+    $rootScope.$on('$stateChangeStart',function(event, next){
+        var authorizedRoles = next.data.authorizedRoles;
+        if(!AuthService.isAuthorized(authorizedRoles)){
+            event.preventDefault();
+            if(AuthService.isAuthenticated()){
+                //user is not allow.
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+            }else{
+                //user is not logged in.
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
             }
-            parts.push(key + '=' + v);
-        })
+        }
     });
 
-    return parts.join('&');
- }
-
- var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule','lotteryModule']);
+}]);*/
 
 //inject service provider($stateProvider,$urlRouteProvider) into our application
 
- EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$httpProvider){
+EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$httpProvider){
 
  	// For any unmatched url, redirect to /notfound
  	$urlRouterProvider.otherwise('/notfound');
@@ -43,26 +36,26 @@
  	//register user route
  	$stateProvider.state(
  		'user',
- 		{
+        {
             abstract:true,
- 			url:'/user',
- 			data:
+            url:'/user',
+            data:
             {
                 title:'用户中心',
                 css:'/css/user.css'
             },
- 			templateUrl:'views/user.html'
- 		}
- 	)
+            templateUrl:'views/user.html'
+        }
+    )
  	.state(
  		'user.login',
  		{
  			url:'/login',
             title:'-用户登录',
-            controller:'UserLogin',
- 			templateUrl:'views/partials/u-login.html'
- 		}
- 	)
+            controller:'LoginController',
+            templateUrl:'views/partials/u-login.html'
+        }
+    )
     .state(
         'user.myrecom',
         {
@@ -84,7 +77,7 @@
                 title:'微商城',
                 css:'/css/market.css'
             },
-            controller:'Market',
+            controller:'MarketController',
             templateUrl:'views/market.html'
         }
     )
@@ -135,15 +128,15 @@
  		{
             //红色抽奖模板
             abstract:true,
- 			url:'/lottery',
+            url:'/lottery',
             data:
             {
                 title:'抽奖',
                 css:'/css/lottery-red.css'
             },
- 			templateUrl:'views/lottery-red.html'
- 		}
- 	)
+            templateUrl:'views/lottery-red.html'
+        }
+    )
     .state(
         'lottery.wheel',
         {
@@ -158,11 +151,14 @@
 
     //set default http header application/x-www-form-urlencoded
     //$httpProvider.defaults.headers.post = {'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'};
- 	
- }]);
+    //the login response interceptor
+    /*$httpProvider.interceptors.push(['injector',function($injector){
+        return $injector.get('AuthInterceptor');
+    }]);*/
 
+}]);
 
- /* EMBS application directive section */
+/*********** EMBS application directive section ***********/
  //compile the head with extra things such like stylesheet、title etc. 
  EMBS.directive('head', ['$rootScope','$compile',
  	function($rootScope, $compile){
@@ -215,12 +211,12 @@
                         });
                     }
                 });
- 			}
- 		};
- 	}
- ])
+            }
+        };
+    }
+])
 //infinit scroll for data handl
- .directive('infiniteScroll',['$window','$timeout',function($window,$timeout){
+.directive('infiniteScroll',['$window','$timeout',function($window,$timeout){
     return {
 
         restrict: 'A',
@@ -348,10 +344,9 @@
 
         }
     }
- }]);
+}]);
 
-
-/* EMBS application filter section */
+/*********** EMBS application filter section ***********/
 //filter for setSize loop
 EMBS.filter('stepSize',function(){
     return function(data,value){
@@ -363,10 +358,31 @@ EMBS.filter('stepSize',function(){
         }
         return newData;
     }
-})
+});
 
+/*********** EMBS common function section ***********/
+ // serialize from object data
+ angular.params = function(params){
+    if (!params) return;
 
-/* EMBS common function section */
+    var parts = [];
+
+    angular.forEach(params,function(value,key){
+        if (value === null || angular.isUndefined(value)) return;
+        if (!angular.isArray(value)) value = [value];
+
+        angular.forEach(value,function(v){
+            //current unsupport the nesting object or array.
+            if (angular.isObject(v)) {
+                v = angular.toJson(v);
+            }
+            parts.push(key + '=' + v);
+        })
+    });
+
+    return parts.join('&');
+}
+
 function GetRandomNum(Min,Max){ 
 
     var range = Max - Min; 

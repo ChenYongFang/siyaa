@@ -12,20 +12,24 @@
     DataService.get({url:'navigation/list4client',params:params,callback:function(data){
         $scope.menus = data.items;
     },cache:true});
- }])
+ }]);
+ //ApplicationController is a container for a lot of global application logic, and an alternative to Angular’s run function.
+ EMBS.controller('ApplicationController',['$scope','USER_ROLES','AuthService',function($scope,USER_ROLES,AuthService){
+
+ 	$scope.currentUser = null;
+ 	$scope.userRoles = USER_ROLES;
+ 	$scope.isAuthorized = AuthService.isAuthorized;
+
+ }]);
 
 
+ //UserModule place in service
+ UserModule.controller('LoginController',['$scope','ModalService','DataService',function($scope,ModalService,DataService){
 
- // define user module controller
- var UserModule = angular.module('userModule',[]);
- UserModule.controller('UserLogin',['$scope','ModalService','DataService',function($scope,ModalService,DataService){
+ 	$scope.credentials = {loginname:'',password:''};
 
- 	$scope.login = function(){
- 		DataService.post({url:'usermgr/user/mobile/login',data:{loginname:$scope.user.uname,password:$scope.user.upwd},callback:function(data){
- 			
- 		},errCollback:function(data,status){
- 			ModalService.openWithDefaultTitle('登录失败，服务器发生异常!');
- 		}});
+ 	$scope.login = function(credentials){
+ 		
  	}
 
  }]);
@@ -34,7 +38,7 @@
 
  //define market module controller
  var MarketModule = angular.module('marketModule',[]);
- MarketModule.controller('Market',['$scope','DataService','ModalService',function($scope,DataService,ModalService){
+ MarketModule.controller('MarketController',['$scope','DataService','ModalService',function($scope,DataService,ModalService){
 
  	//header's drop modal
  	$scope.dropNav = function(){

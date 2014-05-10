@@ -59,3 +59,10 @@ div.container{
 	padding-bottom: 5px;
 	border-bottom: 1px solid #fcb42e;
 }
+.container .wrap-tabs{
+	color: #fff;
+	margin-top: 10px;
+}
+.container .wrap-tabs a{
+	color: #fff;
+}

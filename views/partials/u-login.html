@@ -1,5 +1,5 @@
 <div id="wrap-login">
-	<form novalidate name="login_form" method="post" ng-submit="login()">
+	<form novalidate name="login_form" method="post" ng-submit="login(credentials)">
 		<div ng-class="{'has-error':login_form.uname.$dirty && login_form.uname.$invalid}" class="form-group">
 			<div ng-show="login_form.uname.$dirty && login_form.uname.$invalid">
 				<label ng-show="login_form.uname.$error.required" class="help-block">请输入您的用户名</label>
@@ -7,7 +7,7 @@
 			</div>
 			<div class="wrap-uname">
 				<input name="uname"
-					ng-model="user.uname"
+					ng-model="credentials.loginname"
 					ng-pattern="/^[a-zA-Z][a-zA-Z0-9_]{6,15}$/"
 					type="text"
 					autofocus
@@ -26,7 +26,7 @@
 				<input name="upwd"
 					type="password"
 					ng-minlength="6"
-					ng-model="user.upwd"
+					ng-model="credentials.password"
 					required
 					maxlength="28"
 					class="form-control"
