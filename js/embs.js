@@ -374,6 +374,23 @@ EMBS.filter('stepSize',function(){
 });
 
 /*********** EMBS common function section ***********/
+angular.element.prototype.width = function(){
+    if(this.length === 0)
+        return false;
+
+    var computedStyle = window.getComputedStyle(this[0]);
+    var value = parseFloat(computedStyle.width) - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight);
+    return value;
+};
+angular.element.prototype.height = function(){
+    if(this.length === 0)
+        return false;
+
+    var computedStyle = window.getComputedStyle(this[0]);
+    var value = parseFloat(computedStyle.height) - parseFloat(computedStyle.paddingTop) - parseFloat(computedStyle.paddingBottom);
+    return value;
+};
+
  // serialize from object data
  angular.params = function(params){
     if (!params) return;

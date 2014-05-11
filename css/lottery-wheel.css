@@ -1,12 +1,15 @@
 div.title{
 	margin: 10px 40px 0 60px;
 }
-div.wrap-wheel{
+#wrap-wheel{
 	margin: auto;
 	padding: 0 15px;
+	min-width: 290px;
+	max-width: 830px;
+	max-height: 795px;
 	position: relative;
 }
-.wrap-wheel #wheel{
+/*.wrap-wheel #wheel{
 	top: 0;
 	left: 0;
 	right: 0;
@@ -32,7 +35,7 @@ div.wrap-wheel{
 }
 .wrap-wheel .start button.active{
 	-webkit-transform:rotate(260deg);
-}
+}*/
 div.container{
 	margin-top: 15px;
 	padding: 0 50px 80px;

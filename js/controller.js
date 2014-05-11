@@ -81,8 +81,50 @@
 
  LotteryModule.controller('LotteryWheel',['$scope',function($scope){
 
+ 	//canvas object
+ 	var stage = new Kinetic.Stage({
+ 		container:'wrap-wheel'
+ 	});
+ 	var containerObj = document.getElementById('wrap-wheel');
+ 	var layer = new Kinetic.Layer();
+ 	var maxStageWidth = 770;
+	var maxStageHeight = 735;
+
+ 	var wheelBg = new Image();
+ 	wheelBg.onload = function(){
+
+ 		resizeStage(containerObj);
+ 		var image = new Kinetic.Image({
+ 			width:maxStageWidth,
+ 			height:maxStageHeight,
+ 			image:wheelBg
+ 		});
+
+ 		layer.add(image);
+ 		stage.add(layer);
+ 	};
+ 	wheelBg.src = '/images/lottery/wheel-bg.jpg';
+
+ 	// Sets scale and dimensions of stage in relation to window size
+ 	function resizeStage(containerObj){
+
+ 		var scalePercentage = angular.element(containerObj).width() / maxStageWidth;
+
+ 		stage.setAttr('scaleX', scalePercentage);
+    	stage.setAttr('scaleY', scalePercentage);
+    	stage.setAttr('width', maxStageWidth * scalePercentage);
+    	stage.setAttr('height', maxStageHeight * scalePercentage);
+    	stage.draw();
+
+ 	}
+
+ 	// On window resize we resize the stage size
+	window.addEventListener('resize', function(){
+		resizeStage(containerObj);
+	});
+
  	//strat to roll wheel
- 	$scope.startWheel = function(e){
+ 	/*$scope.startWheel = function(e){
 
  		angular.element(e.target).addClass('active');
  		console.info(e);
@@ -254,21 +296,5 @@
  			}
 
  		}
-
- 		function drawImage(imagePath,x,y){
- 			if(!x)
- 				x = 0;
- 			if(!y)
- 				y = 0;
- 			var img = new Image();
- 			img.src = imagePath;
-
- 			angular.element(img).on('load',function(e){
- 				ctx.drawImage(img,x,y);
- 			});
-
- 		}
-
- 	}
-
+ 	}*/
  }]);
