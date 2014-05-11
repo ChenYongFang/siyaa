@@ -23,19 +23,6 @@
  }]);
 
 
- //UserModule place in service
- UserModule.controller('LoginController',['$scope','ModalService','DataService',function($scope,ModalService,DataService){
-
- 	$scope.credentials = {loginname:'',password:''};
-
- 	$scope.login = function(credentials){
- 		
- 	}
-
- }]);
-
-
-
  //define market module controller
  var MarketModule = angular.module('marketModule',[]);
  MarketModule.controller('MarketController',['$scope','DataService','ModalService',function($scope,DataService,ModalService){

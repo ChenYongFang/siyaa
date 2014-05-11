@@ -8,10 +8,10 @@
  */
  var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule','lotteryModule']);
 
-/*EMBS.run(['$rootScope','AUTH_EVENTS','AuthService',function($rootScope,AUTH_EVENTS,AuthService){
+EMBS.run(['$rootScope','AUTH_EVENTS','AuthService',function($rootScope,AUTH_EVENTS,AuthService){
 
     $rootScope.$on('$stateChangeStart',function(event, next){
-        var authorizedRoles = next.data.authorizedRoles;
+        /*var authorizedRoles = next.data.authorizedRoles;
         if(!AuthService.isAuthorized(authorizedRoles)){
             event.preventDefault();
             if(AuthService.isAuthenticated()){
@@ -21,10 +21,19 @@
                 //user is not logged in.
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
             }
+        }*/
+
+        //is show template global navigation
+        $rootScope.showGlobalNav = true; //default to be display
+        if(angular.isDefined(next.showGlobalNav)){
+            $rootScope.showGlobalNav = next.showGlobalNav;
+        }else if(angular.isDefined(next.data.showGlobalNav)){
+            $rootScope.showGlobalNav = next.data.showGlobalNav;
         }
+
     });
 
-}]);*/
+}]);
 
 //inject service provider($stateProvider,$urlRouteProvider) into our application
 
@@ -52,6 +61,7 @@ EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($sta
  		{
  			url:'/login',
             title:'-用户登录',
+            showGlobalNav:false,
             controller:'LoginController',
             templateUrl:'views/partials/u-login.html'
         }
@@ -62,6 +72,7 @@ EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($sta
             url:'/myrecom',
             title:'-我的推荐人',
             css:'/css/myrecom.css',
+            showGlobalNav:true,
             templateUrl:'views/partials/u-myrecom.html'
         }
     )
@@ -75,6 +86,7 @@ EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($sta
             data:
             {
                 title:'微商城',
+                showGlobalNav:false,
                 css:'/css/market.css'
             },
             controller:'MarketController',
@@ -132,6 +144,7 @@ EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($sta
             data:
             {
                 title:'抽奖',
+                showGlobalNav:false,
                 css:'/css/lottery-red.css'
             },
             templateUrl:'views/lottery-red.html'
