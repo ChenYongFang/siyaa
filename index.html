@@ -11,7 +11,7 @@
 		<!-- ui-view and nest view placed -->
 		<div id="main-view" ui-view></div>
 		<!--nav bar-->
-		<nav id="home-nav" ng-controller="InitHomeNav" class="navbar navbar-fixed-bottom">
+		<nav id="home-nav" ng-if="showGlobalNav" ng-controller="InitHomeNav" class="navbar navbar-fixed-bottom">
 			<div class="navbar-left">
 				<a class="glyphicon glyphicon-home" title="网站主页"></a>
 				<a class="glyphicon glyphicon-user" title="用户信息"></a>
@@ -35,8 +35,8 @@
 <script type="text/javascript" src="lib/angular-ui-router.js"></script>
 <script type="text/javascript" src="js/embs.js"></script>
 <script type="text/javascript" src="lib/ui-bootstrap-0.10.0.js"></script>
+<script type="text/javascript" src="lib/angular-touch.js"></script>
 <script type="text/javascript" src="js/service.js"></script>
 <script type="text/javascript" src="js/user-module.js"></script>
 <script type="text/javascript" src="js/controller.js"></script>
-<script type="text/javascript" src="lib/angular-touch.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
