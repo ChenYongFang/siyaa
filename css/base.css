@@ -20,6 +20,7 @@ button:focus{
 }
 a{
 	color: #333;
+	cursor: pointer;
 }
 a:hover{
 	text-decoration: none;

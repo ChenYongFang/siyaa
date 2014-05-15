@@ -99,11 +99,80 @@
  			height:maxStageHeight,
  			image:wheelBg
  		});
-
  		layer.add(image);
+        drawPrize();
  		stage.add(layer);
  	};
  	wheelBg.src = '/images/lottery/wheel-bg.jpg';
+    // draw arc prize shape
+    function drawPrize(gifts){
+
+        gifts = ['美女','香蕉','苹果'];
+
+        var arc = new Kinetic.Arc({
+            x:120,
+            y:120,
+            angle: 360,
+            fill: 'blue',
+            innerRadius: 100
+        });
+        layer.add(arc);
+
+        var prizeCount = evalPrizeCount(gifts); // mixed prizes count.
+        var shapeAngle = 360 / prizeCount; // each arc shape size.
+        var prizes = mixPrizes(gifts);
+
+        function evalPrizeCount(gifts){
+
+            /* calculate prize count */
+            if(gifts.length < 4){
+                return 8;
+            }else if(gifts.length < 6){
+                return 10;
+            }else{
+                return 12; // max supported gift count to be display.
+            }
+
+        }
+
+        // mix the gifts and virtual prizes
+        function mixPrizes(gifts){
+
+            var prizes = new Array();
+            var virtualPrizes = LOTTERY.VIRTUALPRIZES;
+            var distance = Math.floor((prizeCount - gifts.length) / gifts.length);
+
+            for(var i=0;i<gifts.length;i++){
+                //after add virtual prizes jump to second prize
+                jumpIndex = i * distance + i;
+                prizes[jumpIndex] = gifts[i];
+                prizes[jumpIndex].angle = shapeAngle * (i + 2) + Math.floor(shapeAngle / 2);
+
+                if(distance !== 0){
+                    var tmpPrizes = getRandomVirtualPrizes(distance);
+                    for(var j=0;j<tmpPrizes.length;j++){
+                        prizes[++jumpIndex] = tmpPrizes[j];
+                    }
+                }
+            }
+            function getRandomVirtualPrizes(size){
+                var tmpPrizes = new Array(size);
+                for(var i=0;i<tmpPrizes.length;i++){
+                    tmpPrizes[i] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
+                }
+                return tmpPrizes;
+            }
+            /* add random virtual prize to short prizes  */
+            var shortPrizeCount = prizeCount - prizes.length;
+            var shortIndex = prizes.length;
+            for(var i=0;i<shortPrizeCount;i++){
+                prizes[shortIndex + i] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
+            }
+
+            //console.debug('prizes',prizes);
+            return prizes;
+        }
+    }
 
  	// Sets scale and dimensions of stage in relation to window size
  	function resizeStage(containerObj){

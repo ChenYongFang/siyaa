@@ -1,6 +1,9 @@
 div.title{
 	margin: 10px 40px 0 60px;
 }
+div.title .img-responsive{
+	margin: auto;
+}
 #wrap-wheel{
 	margin: auto;
 	padding: 0 15px;

@@ -6,7 +6,7 @@
  * Version: 1.0
  * License: siyaa inc
  */
- var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule','lotteryModule']);
+ var EMBS = angular.module('embs',['ui.router','ui.bootstrap','userModule','marketModule','lotteryModule','questionnaireModule']);
 
 EMBS.run(['$rootScope','AUTH_EVENTS','AuthService',function($rootScope,AUTH_EVENTS,AuthService){
 
@@ -76,6 +76,43 @@ EMBS.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($sta
             templateUrl:'views/partials/u-myrecom.html'
         }
     )
+
+
+
+    //register questionnaire route
+    .state(
+        'questionnaire',
+        {
+            abstract:true,
+            url:'/questionnaire',
+            data:
+            {
+                title:'问卷调查',
+                showGlobalNav:false,
+                css:'/css/questionnaire/questionnaire.css'
+            },
+            templateUrl:'views/questionnaire/questionnaire.html'
+        }
+    )
+    .state(
+        'questionnaire.home',
+        {
+            url:'/home',
+            title:'-首页',
+            controller:'QuestionnaireController',
+            templateUrl:'views/questionnaire/home.html'
+        }
+    )
+    .state(
+        'questionnaire.details',
+        {
+            url:'/details/:qid',
+            title:'-详细页',
+            controller:'QuestionnaireDetailsController',
+            templateUrl:'views/questionnaire/details.html'
+        }
+    )
+
 
     //register market route
     .state(
