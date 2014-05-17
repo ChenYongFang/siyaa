@@ -108,22 +108,30 @@
     function drawPrize(gifts){
 
         gifts = ['美女','香蕉','苹果'];
-
-        var arc = new Kinetic.Arc({
-            x:120,
-            y:120,
-            angle: 360,
-            fill: 'blue',
-            innerRadius: 100
-        });
-        layer.add(arc);
-
         var prizeCount = evalPrizeCount(gifts); // mixed prizes count.
         var shapeAngle = 360 / prizeCount; // each arc shape size.
         var prizes = mixPrizes(gifts);
+        
+        drawShape(prizes,LOTTERY.COLORS);
+        // draw prize shape to circle
+        function drawShape(prizes,colors){
+
+            var x = Math.round(maxStageWidth / 2) + 7;
+            var y = Math.round(maxStageHeight / 2) + 58;
+
+            for(var i=0;i<prizes.length;i++){
+                var arc = new Kinetic.Arc({
+                    x:x,
+                    y:y,
+                    angle: shapeAngle,
+                    fill: colors[i],
+                    innerRadius: 240
+                });
+                layer.add(arc);
+            }
+        }
 
         function evalPrizeCount(gifts){
-
             /* calculate prize count */
             if(gifts.length < 4){
                 return 8;
@@ -132,7 +140,6 @@
             }else{
                 return 12; // max supported gift count to be display.
             }
-
         }
 
         // mix the gifts and virtual prizes
