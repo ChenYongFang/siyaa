@@ -1,0 +1,13 @@
+<div class="wrap-questionnaires">
+	<div class="list-group">
+		<h3 href="#" class="list-group-item title">
+			问卷调查
+		</h3>
+		<a href="#/questionnaire/details/{{item.id}}" ng-repeat="item in questionnaires.items" class="list-group-item clearfix" ng-class="{even:$even}">
+			<h5 class="list-group-item-heading">{{$index+1}}、{{item.title}}</h5>
+			<div class="pull-right">
+				({{item.startTime | date:'yyyy&nbsp;&nbsp;M/dd HH:mm'}}—{{item.endTime | date:'yyyy&nbsp;&nbsp;M/dd HH:mm'}})
+			</div>
+		</a>
+	</div>
+</div>

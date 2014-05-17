@@ -1,0 +1,28 @@
+<div class="wrap-questionnaires clearfix">
+	<div class="list-group">
+		<h5 href="#" class="list-group-item title">
+			{{questionnaire.name}}
+		</h5>
+		<p class="list-group-item even">
+			{{question.index+1}}、{{question.question}}
+		</p>
+		<p ng-repeat="item in question.select" ng-if="question.type===0" class="list-group-item" ng-class="{even:$odd}">
+			<input type="radio" name="answer" value="{{item.id}}" />{{item.name}}
+		</p>
+		<p ng-repeat="item in question.select" ng-if="question.type===1" class="list-group-item" ng-class="{even:$odd}">
+			<input type="checkbox" value="{{item.id}}" />{{item.name}}
+		</p>
+		<p class="list-group-item wrap-textarea" ng-if="question.type===2">
+			<textarea class="form-control" rows="6"></textarea>
+			您可以输入：<span>256</span>个字符
+		</p>
+	</div>
+	<div class=".row wrap-btn">
+		<div class="col-xs-6">
+			<button class="btn btn-block btn-primary">上一题</button>
+		</div>
+		<div class="col-xs-6">
+			<button class="btn btn-block btn-default">下一题</button>
+		</div>
+	</div>
+</div>
