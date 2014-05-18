@@ -86,22 +86,42 @@
  		container:'wrap-wheel'
  	});
  	var containerObj = document.getElementById('wrap-wheel');
- 	var layer = new Kinetic.Layer();
  	var maxStageWidth = 770;
 	var maxStageHeight = 735;
+    var maxStageXRadius = Math.round(maxStageWidth / 2);
+    var maxStageYRadius = Math.round(maxStageHeight / 2);
 
  	var wheelBg = new Image();
  	wheelBg.onload = function(){
 
+        var bgLayer = new Kinetic.Layer();
  		resizeStage(containerObj);
  		var image = new Kinetic.Image({
  			width:maxStageWidth,
  			height:maxStageHeight,
  			image:wheelBg
  		});
- 		layer.add(image);
+ 		bgLayer.add(image);
+        stage.add(bgLayer);
+        //draw prize shape.
         drawPrize();
- 		stage.add(layer);
+
+        //draw start button image
+        var startImg = new Image();
+        startImg.src = '/images/lottery/wheel-start.png';
+        startImg.onload = function(){
+            var startLayer = new Kinetic.Layer();
+            var image = new Kinetic.Image({
+                x:maxStageXRadius - 62,
+                y:maxStageYRadius - 52,
+                width:132,
+                height:167,
+                image:startImg
+            });
+            startLayer.add(image);
+            stage.add(startLayer);
+        };
+
  	};
  	wheelBg.src = '/images/lottery/wheel-bg.jpg';
     // draw arc prize shape
@@ -116,8 +136,9 @@
         // draw prize shape to circle
         function drawShape(prizes,colors){
 
-            var x = Math.round(maxStageWidth / 2) + 7;
-            var y = Math.round(maxStageHeight / 2) + 58;
+            var x = maxStageXRadius + 6;
+            var y = maxStageYRadius + 58;
+            var arcLayer = new Kinetic.Layer();
 
             for(var i=0;i<prizes.length;i++){
                 var arc = new Kinetic.Arc({
@@ -125,10 +146,13 @@
                     y:y,
                     angle: shapeAngle,
                     fill: colors[i],
-                    innerRadius: 240
+                    innerRadius: 238,
+                    rotationDeg:shapeAngle * i
                 });
-                layer.add(arc);
+                arcLayer.add(arc);
             }
+
+            stage.add(arcLayer);
         }
 
         function evalPrizeCount(gifts){
