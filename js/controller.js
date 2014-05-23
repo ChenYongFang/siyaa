@@ -113,7 +113,7 @@
             var startLayer = new Kinetic.Layer();
             var image = new Kinetic.Image({
                 x:maxStageXRadius - 62,
-                y:maxStageYRadius - 52,
+                y:maxStageYRadius - 40,
                 width:132,
                 height:167,
                 image:startImg
@@ -138,6 +138,8 @@
 
             var x = maxStageXRadius + 6;
             var y = maxStageYRadius + 58;
+            var innerRadius = 238;
+            //var shapeRadian = Math.PI / (prizeCount / 2);
             var arcLayer = new Kinetic.Layer();
 
             for(var i=0;i<prizes.length;i++){
@@ -146,9 +148,18 @@
                     y:y,
                     angle: shapeAngle,
                     fill: colors[i],
-                    innerRadius: 238,
+                    innerRadius: innerRadius,
                     rotationDeg:shapeAngle * i
                 });
+               /* var text = new Kinetic.Text({
+                    fill:'#fff',
+                    x: x,
+                    y: y,
+                    text: prizes[i],
+                    fontSize: 42,
+                    fontStyle:'bold',
+                    fontFamily: 'sans-serif',
+                });*/
                 arcLayer.add(arc);
             }
 
