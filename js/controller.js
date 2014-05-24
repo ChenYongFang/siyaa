@@ -139,28 +139,33 @@
             var x = maxStageXRadius + 6;
             var y = maxStageYRadius + 58;
             var innerRadius = 238;
-            //var shapeRadian = Math.PI / (prizeCount / 2);
+            var shapeRadian = Math.PI / (prizeCount / 2);
+            var textRadius = x / 2 - 6;
             var arcLayer = new Kinetic.Layer();
 
             for(var i=0;i<prizes.length;i++){
+                var radian = shapeRadian * i;
                 var arc = new Kinetic.Arc({
-                    x:x,
-                    y:y,
+                    x: x,
+                    y: y,
                     angle: shapeAngle,
                     fill: colors[i],
                     innerRadius: innerRadius,
                     rotationDeg:shapeAngle * i
                 });
-               /* var text = new Kinetic.Text({
+                var funRadian = radian + shapeRadian / 2;
+                var text = new Kinetic.Text({
                     fill:'#fff',
-                    x: x,
-                    y: y,
+                    x: x + Math.cos(funRadian) * textRadius,
+                    y: y + Math.sin(funRadian) * textRadius,
                     text: prizes[i],
                     fontSize: 42,
                     fontStyle:'bold',
+                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180,
                     fontFamily: 'sans-serif',
-                });*/
+                });
                 arcLayer.add(arc);
+                arcLayer.add(text);
             }
 
             stage.add(arcLayer);
