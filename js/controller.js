@@ -85,6 +85,8 @@
  	var stage = new Kinetic.Stage({
  		container:'wrap-wheel'
  	});
+    stage.setListening(false);
+
  	var containerObj = document.getElementById('wrap-wheel');
  	var maxStageWidth = 770;
 	var maxStageHeight = 735;
