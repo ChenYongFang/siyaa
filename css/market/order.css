@@ -1,0 +1,68 @@
+body{
+	background: #f0f0f0;
+}
+nav.btn-group-justified{
+	height: 40px;
+	background: #f4f4f4;
+	border-bottom: 1px solid #b3b3b3;
+}
+nav.btn-group-justified a{
+	border: none;
+	border-radius: 0;
+}
+nav.btn-group-justified a.active{
+	color: #f15a25;
+	box-shadow: none;
+	margin-top: -3px;
+	border-bottom: 3px solid #f15a25;
+}
+
+/* 订单列表 */
+.order-list{
+	padding: 0 15px 15px 15px;
+}
+.order-list .item{
+	padding: 10px;
+	margin-top: 15px;
+	border-radius: 5px;
+	background: #fffefe;
+	box-shadow: 1px 1px 4px #e0dede;
+}
+.order-list .item img{
+	width: 65px;
+	height: 65px;
+	padding: 3px;
+	float: left;
+	border-radius: 2px;
+	border: 1px solid #e5e5e5;
+}
+.order-list .item .info{
+	margin-left: 70px;
+}
+.order-list .item .info h6{
+	margin: 0;
+	min-height: 32px;
+	font-size: 14px;
+	line-height: 1.2;
+	margin-bottom: 10px;
+	font-weight: normal;
+}
+.order-list .item .info .brief-order{
+	text-align: center;
+}
+.order-list .item .info .pay-price{
+	float: left;
+	color: #999;
+}
+.order-list .item .info .status{
+	float: right;
+}
+.order-list .item hr{
+	margin: 12px -10px 10px;
+}
+.order-list .item .operation{
+	text-align: right;
+}
+.order-list .item .operation .btn{
+	padding: 2px 10px;
+}

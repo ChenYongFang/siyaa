@@ -1,0 +1,33 @@
+body{
+	background: #90150d;
+}
+header.title{
+	color: #fcb42e;
+	height: 40px;
+	padding: 0 20px;
+	line-height: 40px;
+	background: #631e17;
+}
+header .wrap-jf{
+	height: 40px;
+	float: right;
+	color: #fff;
+	padding-left: 30px;
+	font-size: 1.2em;
+	background: url(/images/lottery/top-jf-bg.png) no-repeat center left;
+	background-size: 24px;
+}
+header .wrap-jf small{
+	font-size: 0.6em;
+}
+
+/* rest bootstrap tabs css */
+.wrap-tabs .nav-justified li{
+	width: 1%;
+	display: table-cell;
+}
+.wrap-tabs .nav-justified li a{
+	padding: 10px 0;
+	border-radius: 0;
+	border: none !important;
+}
