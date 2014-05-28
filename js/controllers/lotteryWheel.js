@@ -16,6 +16,8 @@ define(['js/app'],function(app){
 	 	});
 	    stage.setListening(false);
 
+	    var anim = null;
+
 	 	var containerObj = document.getElementById('wrap-wheel');
 	 	var maxStageWidth = 770;
 		var maxStageHeight = 735;
@@ -50,6 +52,13 @@ define(['js/app'],function(app){
 	            });
 	            startLayer.add(image);
 	            stage.add(startLayer);
+	            image.on('click',function(){
+	            	alert('start wheel!');
+	            });
+	            //wheell the start button
+	            anim = new Kinetic.Animation(function(frame){
+
+	            },startLayer);
 	        };
 	        startImg.src = '/images/lottery/wheel-start.png';
 
@@ -58,7 +67,7 @@ define(['js/app'],function(app){
 	    // draw arc prize shape
 	    function drawPrize(gifts){
 
-	        gifts = ['美女测试','香蕉','苹果'];
+	        gifts = ['美女','香蕉','苹果'];
 	        var prizeCount = evalPrizeCount(gifts); // mixed prizes count.
 	        var shapeAngle = 360 / prizeCount; // each arc shape size.
 	        var prizes = mixPrizes(gifts);
@@ -71,7 +80,7 @@ define(['js/app'],function(app){
 	            var y = maxStageYRadius + 58;
 	            var innerRadius = 238;
 	            var shapeRadian = Math.PI / (prizeCount / 2);
-	            var textRadius = x / 2;
+	            var textRadius = x / 2 - 15;
 	            var arcLayer = new Kinetic.Layer();
 
 	            for(var i=0;i<prizes.length;i++){
@@ -94,20 +103,7 @@ define(['js/app'],function(app){
                 		var tmpText = textObj[j] + textObj[j+1];
                 		drawTexts.push(tmpText);
                 	}
-	                /* draw first text */
-	                var text = new Kinetic.Text({
-	                    fill:'#fff',
-	                    fontSize: 40,
-	                    fontStyle:'bold',
-	                    text: drawTexts[0],
-	                    fontFamily: 'sans-serif',
-	                    x: x + Math.cos(funRadian) * textRadius,
-	                    y: y + Math.sin(funRadian) * textRadius,
-	                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180
-	                });
-	                text.offsetX(text.width()/2);
-	                arcLayer.add(text);
-	                /*for(var j=0;j<drawTexts.length;j++){
+	                for(var j=0;j<drawTexts.length;j++){
 	                	var text = new Kinetic.Text({
 		                    fill:'#fff',
 		                    fontSize: 40,
@@ -119,9 +115,11 @@ define(['js/app'],function(app){
 		                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180
 		                });
 		                text.offsetX(text.width()/2);
-		                text.offsetY(text.height());
+		                if(j%2 === 0){
+		                	text.offsetY(text.height());
+		                }
 		                arcLayer.add(text);
-	                }*/
+	                }
 	            }
 
 	            stage.add(arcLayer);
