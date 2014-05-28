@@ -241,6 +241,8 @@
 
     APP.run(['$rootScope','AUTH_EVENTS','AuthService',function($rootScope,AUTH_EVENTS,AuthService){
 
+        $rootScope.showGlobalNav = true; //default display golbal navigation
+
         $rootScope.$on('$stateChangeStart',function(event, next){
             /*var authorizedRoles = next.data.authorizedRoles;
             if(!AuthService.isAuthorized(authorizedRoles)){
@@ -255,7 +257,6 @@
             }*/
 
             //is show template global navigation
-            $rootScope.showGlobalNav = true; //default to be display
             if(angular.isDefined(next.showGlobalNav)){
                 $rootScope.showGlobalNav = next.showGlobalNav;
             }else if(angular.isDefined(next.data.showGlobalNav)){
