@@ -44,21 +44,27 @@ define(['js/app'],function(app){
 	        startImg.onload = function(){
 	            var startLayer = new Kinetic.Layer();
 	            var image = new Kinetic.Image({
-	                x:maxStageXRadius - 62,
-	                y:maxStageYRadius - 40,
+	                x:maxStageXRadius + 4,
+	                y:maxStageYRadius + 60,
 	                width:132,
 	                height:167,
-	                image:startImg
+	                image:startImg,
+	                listening:true,
+	                offset: {x:66, y:102}
 	            });
 	            startLayer.add(image);
 	            stage.add(startLayer);
-	            image.on('click',function(){
-	            	alert('start wheel!');
-	            });
-	            //wheell the start button
+	            /* wheell the start button */
+	            // one revolution per 4 seconds
+        		var angularSpeed = 360 / 4;
 	            anim = new Kinetic.Animation(function(frame){
-
+	            	var angleDiff = frame.timeDiff * angularSpeed / 400;
+          			image.rotate(angleDiff);
 	            },startLayer);
+	            image.on('tap click',function(){
+	            	//alert('start wheel!');
+	            	anim.start();
+	            });
 	        };
 	        startImg.src = '/images/lottery/wheel-start.png';
 
