@@ -14,7 +14,10 @@
 		<div class="info">
 			<p>此大转盘有效期：</p>
 			<p>2014.3.01-2014.3.11</p>
-			<p>玩一次只需要100积分，苹果5S等你来拿。机不可失，失不再来，亲们开抢啦！</p>
+			<div class="prize-rate">
+				<p ng-repeat="gift in gifts">{{gift.rate | chineseNum}}等奖：{{gift.name}}</p>
+			</div>
+			<p>玩一次只需要100积分，各种奖品等你来拿。机不可失，失不再来，亲们开抢啦！</p>
 		</div>
 	</div>
 	<!--<tabset justified="true">

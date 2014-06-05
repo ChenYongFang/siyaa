@@ -19,4 +19,22 @@
 	        return newData;
 	    }
 	});
+
+	//parse number to be Chinese number e.g 123 一二三
+	app.filter('chineseNum',function(){
+
+		var N = ["零","一","二","三","四","五","六","七","八","九"];
+
+		return function(data,value){
+			if(!data || !angular.isNumber(data))
+				return;
+			var str = data.toString();
+			var len = data.toString().length;
+			var C_Num = [];
+			for(var i = 0; i < len; i++){
+				C_Num.push(N[str.charAt(i)]);
+			}
+			return C_Num.join('');
+		}
+	});
  });

@@ -16,7 +16,10 @@ define(['js/app'],function(app){
 	 	});
 	    stage.setListening(false);
 
-	    var anim = null;
+	    var tween = null; //animate the start button obj
+	    var unluckAngle = []; //unluck angule
+	    var gifts = [{name:'美女一个',rate:1},{name:'Iphone5一台',rate:2},{name:'300元现金红包',rate:3},{name:'100淘积分',rate:4}];
+	    $scope.gifts = gifts;
 
 	 	var containerObj = document.getElementById('wrap-wheel');
 	 	var maxStageWidth = 770;
@@ -37,7 +40,17 @@ define(['js/app'],function(app){
 	 		bgLayer.add(image);
 	        stage.add(bgLayer);
 	        //draw prize shape.
-	        drawPrize();
+	        unluckAngle = drawPrize(gifts);
+	 	};
+	 	wheelBg.src = '/images/lottery/wheel-bg.jpg';
+	    // draw arc prize shape
+	    function drawPrize(gifts){
+
+	        var unluckAngle = [];
+	        var prizeCount = evalPrizeCount(gifts); // mixed prizes count.
+	        var shapeAngle = 360 / prizeCount; // each arc shape size.
+	        var startAngle = 90 % shapeAngle + shapeAngle / 2; //start wheel button angle
+	        var prizes = mixPrizes(gifts);
 
 	        //draw start button image
 	        var startImg = new Image();
@@ -50,33 +63,28 @@ define(['js/app'],function(app){
 	                height:167,
 	                image:startImg,
 	                listening:true,
+	                rotation:startAngle,
 	                offset: {x:66, y:102}
 	            });
 	            startLayer.add(image);
 	            stage.add(startLayer);
 	            /* wheell the start button */
-	            // one revolution per 4 seconds
-        		var angularSpeed = 360 / 4;
-	            anim = new Kinetic.Animation(function(frame){
-	            	var angleDiff = frame.timeDiff * angularSpeed / 400;
-          			image.rotate(angleDiff);
-	            },startLayer);
 	            image.on('tap click',function(){
-	            	//alert('start wheel!');
-	            	anim.start();
+
+	            	var angle = unluckAngle[GetRandomNum(0,unluckAngle.length)] + 360 * 4;
+	            	if(tween){
+	            		tween.reset();
+	            	}
+	            	tween = new Kinetic.Tween({
+		            	node:image,
+		            	duration: 3,
+		            	rotation: angle,
+		            	easing: Kinetic.Easings.StrongEaseOut
+		            });
+	            	tween.play();
 	            });
 	        };
 	        startImg.src = '/images/lottery/wheel-start.png';
-
-	 	};
-	 	wheelBg.src = '/images/lottery/wheel-bg.jpg';
-	    // draw arc prize shape
-	    function drawPrize(gifts){
-
-	        gifts = ['美女','香蕉','苹果'];
-	        var prizeCount = evalPrizeCount(gifts); // mixed prizes count.
-	        var shapeAngle = 360 / prizeCount; // each arc shape size.
-	        var prizes = mixPrizes(gifts);
 	        
 	        drawShape(prizes,LOTTERY.COLORS);
 	        // draw prize shape to circle
@@ -86,7 +94,7 @@ define(['js/app'],function(app){
 	            var y = maxStageYRadius + 58;
 	            var innerRadius = 238;
 	            var shapeRadian = Math.PI / (prizeCount / 2);
-	            var textRadius = x / 2 - 15;
+	            var textRadius = x / 2 - 18;
 	            var arcLayer = new Kinetic.Layer();
 
 	            for(var i=0;i<prizes.length;i++){
@@ -104,27 +112,58 @@ define(['js/app'],function(app){
 	                var funRadian = radian + shapeRadian / 2;
 
 	                var textObj = prizes[i]; // draw text object
-	                var drawTexts = [];
-	                for(var j=0;j<textObj.length;j=j+2){
-                		var tmpText = textObj[j] + textObj[j+1];
-                		drawTexts.push(tmpText);
-                	}
-	                for(var j=0;j<drawTexts.length;j++){
+	                var drawCtx = [];
+
+	                if(angular.isObject(textObj)){
 	                	var text = new Kinetic.Text({
 		                    fill:'#fff',
-		                    fontSize: 40,
+		                    fontSize: 60,
 		                    fontStyle:'bold',
-		                    text: drawTexts[j],
+		                    text: textObj.rate,
 		                    fontFamily: 'sans-serif',
 		                    x: x + Math.cos(funRadian) * textRadius,
 		                    y: y + Math.sin(funRadian) * textRadius,
 		                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180
 		                });
 		                text.offsetX(text.width()/2);
-		                if(j%2 === 0){
-		                	text.offsetY(text.height());
-		                }
 		                arcLayer.add(text);
+		                text.offsetY(text.height());
+		                var text = new Kinetic.Text({
+		                    fill:'#fff',
+		                    fontSize: 40,
+		                    fontStyle:'bold',
+		                    text: '等奖',
+		                    fontFamily: 'sans-serif',
+		                    x: x + Math.cos(funRadian) * textRadius,
+		                    y: y + Math.sin(funRadian) * textRadius,
+		                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180
+		                });
+		                text.offsetX(text.width()/2);
+		                arcLayer.add(text);
+	                }else{
+	                	//draw virtual prizes text
+		                for(var j=0;j<textObj.length;j=j+2){
+	                		var tmpText = textObj[j] + textObj[j+1];
+	                		drawCtx.push(tmpText);
+	                	}
+
+		                for(var j=0;j<drawCtx.length;j++){
+		                	var text = new Kinetic.Text({
+			                    fill:'#fff',
+			                    fontSize: 40,
+			                    fontStyle:'bold',
+			                    text: drawCtx[j],
+			                    fontFamily: 'sans-serif',
+			                    x: x + Math.cos(funRadian) * textRadius,
+			                    y: y + Math.sin(funRadian) * textRadius,
+			                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180
+			                });
+			                text.offsetX(text.width()/2);
+			                if(j%2 === 0){
+			                	text.offsetY(text.height());
+			                }
+			                arcLayer.add(text);
+		                }
 	                }
 	            }
 
@@ -134,17 +173,16 @@ define(['js/app'],function(app){
 	        function evalPrizeCount(gifts){
 	            /* calculate prize count */
 	            if(gifts.length < 4){
-	                return 8;
+	                return 7;
 	            }else if(gifts.length < 6){
-	                return 10;
+	                return 8;
 	            }else{
-	                return 12; // max supported gift count to be display.
+	                return 9; // max supported gift count to be display.
 	            }
 	        }
 
 	        // mix the gifts and virtual prizes
 	        function mixPrizes(gifts){
-
 	            var prizes = new Array();
 	            var virtualPrizes = LOTTERY.VIRTUALPRIZES;
 	            var distance = Math.floor((prizeCount - gifts.length) / gifts.length);
@@ -159,6 +197,8 @@ define(['js/app'],function(app){
 	                    var tmpPrizes = getRandomVirtualPrizes(distance);
 	                    for(var j=0;j<tmpPrizes.length;j++){
 	                        prizes[++jumpIndex] = tmpPrizes[j];
+	                        //generate the unluck angle
+	                        unluckAngle.push(shapeAngle * (jumpIndex + 2) + startAngle);
 	                    }
 	                }
 	            }
@@ -174,16 +214,19 @@ define(['js/app'],function(app){
 	            var shortIndex = prizes.length;
 	            for(var i=0;i<shortPrizeCount;i++){
 	                prizes[shortIndex + i] = virtualPrizes[GetRandomNum(0,virtualPrizes.length - 1)];
+	                //generate the short prize unluck angle
+	                unluckAngle.push(shapeAngle * (shortIndex + i + 2) + startAngle);
 	            }
 
-	            //console.debug('prizes',prizes);
+	            console.debug('prizes',prizes);
+	            console.debug('unluck angle',unluckAngle);
 	            return prizes;
 	        }
+	        return unluckAngle;
 	    }
 
 	 	// Sets scale and dimensions of stage in relation to window size
 	 	function resizeStage(containerObj){
-
 	 		var scalePercentage = angular.element(containerObj).width() / maxStageWidth;
 
 	 		stage.setAttr('scaleX', scalePercentage);
@@ -191,7 +234,6 @@ define(['js/app'],function(app){
 	    	stage.setAttr('width', maxStageWidth * scalePercentage);
 	    	stage.setAttr('height', maxStageHeight * scalePercentage);
 	    	stage.draw();
-
 	 	}
 
 	 	// On window resize we resize the stage size
