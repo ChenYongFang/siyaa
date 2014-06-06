@@ -88,71 +88,38 @@
 
     /* web modal service */
     app.factory('ModalService',['$modal','$log',function($modal,$log){
-        //show a modal
-        function show(obj){
-
-            // default template
-            var defaultTpl = '';
-
-            if(obj.templateUrl){
-                // set templateUrl
-                defaultTpl = obj.templateUrl;
-            }else if(obj.template){
-                //inline template 
-                $modal.open({
-                    template:obj.template,
-                    controller:obj.controller,
-                    resolve:obj.resolve
-                });
-                //jump out of here
-                return true;
-            }else{
-                // set template to be default.
-                defaultTpl = '/views/angularui/modal/modal.htm';
-            }
-
-            //tmpUrl,title,content,controller,resolve
-            $modal.open({
-                templateUrl:defaultTpl,
-                controller:obj.controller,
-                resolve:obj.resolve
-            });
-        }
-
-        // close a modal
-        function close($modalInstance){
-            $modalInstance.close();
-        }
-
         return{
             //advance modal service
-            show:show,
+            open:$modal.open,
             // open a modal.
-            open:function(title,content){
-                show({
+            openDefault:function(title,content){
+                $modal.open({
+                    templateUrl:'/views/angularui/modal/modal.htm',
                     controller:function($scope,$modalInstance){
                         $scope.title = title;
                         $scope.content = content;
                         $scope.close = function(){
-                            close($modalInstance);
+                            $modalInstance.close();
                         }
                     }
                 });
             },
             // open a modal with default title
-            openWithDefaultTitle:function(content){
-                show({
+            openWithText:function(content){
+                $modal.open({
                     controller:function($scope,$modalInstance){
+                        templateUrl:'/views/angularui/modal/modal.htm',
                         $scope.title = '温馨提示';
                         $scope.content = content;
                         $scope.close = function(){
-                            close($modalInstance);
+                             $modalInstance.close();
                         }
                     }
                 });
             }
         }
     }]);
+
 
     /* basic data service */
     app.factory('DataService',['$q','$http','$log','ModalService',function($q,$http,$log,ModalService){

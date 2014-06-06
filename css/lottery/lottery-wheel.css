@@ -43,3 +43,22 @@ div.container{
 .container .wrap-tabs a{
 	color: #fff;
 }
+#model-ctx{
+	padding: 20px;
+	text-align: center;
+}
+#model-ctx #msg{
+	color: #272724;
+	font-size: 1.1em;
+	margin-bottom: 40px;
+}
+#model-ctx .btn{
+	color: #ffffff;
+	padding: 8px 20px;
+	background: #ea5709;
+}
+.wheel-result .modal-content{
+	top: 50%;
+	width: 100%;
+	margin-top: -80px;
+}

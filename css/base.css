@@ -39,6 +39,11 @@ a:hover{
 .modal{
 	overflow: auto;
 }
+.modal-vm .modal-dialog{
+	margin: auto;
+	height: 100%;
+	padding: 10px;
+}
 /* used for vertical align middle */
 div.table{
 	display: table;

@@ -8,7 +8,7 @@
 
 define(['js/app'],function(app){
 
-	app.register.controller('LotteryWheel',['$scope',function($scope){
+	app.register.controller('LotteryWheel',['$scope','ModalService',function($scope,ModalService){
 
 	 	//canvas object
 	 	var stage = new Kinetic.Stage({
@@ -68,20 +68,34 @@ define(['js/app'],function(app){
 	            });
 	            startLayer.add(image);
 	            stage.add(startLayer);
-	            /* wheell the start button */
+
+	            /* wheel the start button */
 	            image.on('tap click',function(){
 
 	            	var angle = unluckAngle[GetRandomNum(0,unluckAngle.length)] + 360 * 4;
+	            	
 	            	if(tween){
 	            		tween.reset();
 	            	}
 	            	tween = new Kinetic.Tween({
-		            	node:image,
-		            	duration: 3,
-		            	rotation: angle,
-		            	easing: Kinetic.Easings.StrongEaseOut
-		            });
-	            	tween.play();
+	            		node:image,
+	            		duration: 3,
+	            		rotation:angle,
+	            		onFinish:function(){
+	            			ModalService.open({
+	            				backdrop:'static',
+	            				windowClass:'wheel-result modal-vm',
+	            				templateUrl:'lottery-result.html',
+	            				controller:['$scope','$modalInstance',function($scope,$modalInstance){
+	            					$scope.msg = '很遗憾，您没有中奖在接再励哦！';
+	            					$scope.close = $modalInstance.close;
+	            				}]
+	            			});
+	            		},
+	            		easing: Kinetic.Easings.StrongEaseOut
+	            	});
+	            	
+	            	console.info(tween.play());
 	            });
 	        };
 	        startImg.src = '/images/lottery/wheel-start.png';
