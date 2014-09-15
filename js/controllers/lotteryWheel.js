@@ -11,6 +11,8 @@ define(['js/app'],function(app){
 	app.register.controller('LotteryWheel',['$scope','ModalService',function($scope,ModalService){
 
 	 	//canvas object
+        var bgLayer = new Kinetic.Layer();
+        var wheelLayer = new Kinetic.Layer();
 	 	var stage = new Kinetic.Stage({
 	 		container:'wrap-wheel'
 	 	});
@@ -29,8 +31,6 @@ define(['js/app'],function(app){
 
 	 	var wheelBg = new Image();
 	 	wheelBg.onload = function(){
-
-	        var bgLayer = new Kinetic.Layer();
 	 		resizeStage(containerObj);
 	 		var image = new Kinetic.Image({
 	 			width:maxStageWidth,
@@ -38,24 +38,22 @@ define(['js/app'],function(app){
 	 			image:wheelBg
 	 		});
 	 		bgLayer.add(image);
-	        stage.add(bgLayer);
+            stage.add(bgLayer);
 	        //draw prize shape.
-	        unluckAngle = drawPrize(gifts);
+            drawPrizeShape(gifts);
 	 	};
 	 	wheelBg.src = '/images/lottery/wheel-bg.jpg';
 	    // draw arc prize shape
-	    function drawPrize(gifts){
-
-	        var unluckAngle = [];
+	    function drawPrizeShape(gifts){
 	        var prizeCount = evalPrizeCount(gifts); // mixed prizes count.
 	        var shapeAngle = 360 / prizeCount; // each arc shape size.
 	        var startAngle = 90 % shapeAngle + shapeAngle / 2; //start wheel button angle
 	        var prizes = mixPrizes(gifts);
+            var prizeShapeGroup = new Kinetic.Group();
 
 	        //draw start button image
 	        var startImg = new Image();
 	        startImg.onload = function(){
-	            var startLayer = new Kinetic.Layer();
 	            var image = new Kinetic.Image({
 	                x:maxStageXRadius + 4,
 	                y:maxStageYRadius + 60,
@@ -66,9 +64,8 @@ define(['js/app'],function(app){
 	                rotation:startAngle,
 	                offset: {x:66, y:102}
 	            });
-	            startLayer.add(image);
-	            stage.add(startLayer);
-
+                wheelLayer.add(image);
+                stage.add(wheelLayer);
 	            /* wheel the start button */
 	            image.on('tap click',function(){
 
@@ -109,7 +106,6 @@ define(['js/app'],function(app){
 	            var innerRadius = 238;
 	            var shapeRadian = Math.PI / (prizeCount / 2);
 	            var textRadius = x / 2 - 18;
-	            var arcLayer = new Kinetic.Layer();
 
 	            for(var i=0;i<prizes.length;i++){
 	                var radian = shapeRadian * i;
@@ -121,7 +117,7 @@ define(['js/app'],function(app){
 	                    innerRadius: innerRadius,
 	                    rotationDeg:shapeAngle * i
 	                });
-	                arcLayer.add(arc);
+                    prizeShapeGroup.add(arc);
 
 	                var funRadian = radian + shapeRadian / 2;
 
@@ -140,7 +136,7 @@ define(['js/app'],function(app){
 		                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180
 		                });
 		                text.offsetX(text.width()/2);
-		                arcLayer.add(text);
+                        prizeShapeGroup.add(text);
 		                text.offsetY(text.height());
 		                var text = new Kinetic.Text({
 		                    fill:'#fff',
@@ -153,7 +149,7 @@ define(['js/app'],function(app){
 		                    rotation:(funRadian + Math.PI / 2) / Math.PI * 180
 		                });
 		                text.offsetX(text.width()/2);
-		                arcLayer.add(text);
+                        prizeShapeGroup.add(text);
 	                }else{
 	                	//draw virtual prizes text
 		                for(var j=0;j<textObj.length;j=j+2){
@@ -176,12 +172,11 @@ define(['js/app'],function(app){
 			                if(j%2 === 0){
 			                	text.offsetY(text.height());
 			                }
-			                arcLayer.add(text);
+                            prizeShapeGroup.add(text);
 		                }
 	                }
 	            }
-
-	            stage.add(arcLayer);
+                wheelLayer.add(prizeShapeGroup);
 	        }
 
 	        function evalPrizeCount(gifts){
